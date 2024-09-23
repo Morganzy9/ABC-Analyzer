@@ -1,0 +1,12 @@
+from .add_repairrecord import AddRepairRecordView, AddSelectionView, GetRepairRecordView
+from .list_repairrecord import ListRepairRecordView
+from .list_repairrecord import ListCSVRepairRecordView
+from .mass_upload_repairrecord import MassUploadView
+from .summary_repairrecord import SummaryRepairRecordView
+from .summary_repairrecord import SummaryCSVRepairRecordView
+from .summary_repairrecord import SummaryPDFRepairRecordView
+from .equipment_repairrecord import EquipmentView
+from .equipmentinactivetime_repairrecord import EquipmentInactiveTimeView
+from .list_user import ListUserView
+from .list_user import ListCSVUserView
+from .user import UserView

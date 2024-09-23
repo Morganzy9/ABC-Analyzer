@@ -1,0 +1,437 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-27 05:32+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: uz \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: repair_records/admin.py:16 repair_records/models/work_action.py:11
+#: repair_records/views/list_user.py:23
+#: repair_records/views/summary_repairrecord.py:28
+msgid "Factory"
+msgstr "Zavod"
+
+#: repair_records/apps.py:8 repair_records/models/repair_record.py:20
+msgid "Repair Records"
+msgstr "Ta'mir Yozmalari"
+
+#: repair_records/forms.py:48
+msgid "Submit"
+msgstr "Yuborish"
+
+#: repair_records/forms.py:128
+msgid "Select a file"
+msgstr "Faylni tanlang"
+
+#: repair_records/forms.py:129
+msgid "Only XLSX, CSV, and XLS files are allowed."
+msgstr "Faqat XLSX, CSV va XLS fayllarini tanlash mumkin."
+
+#: repair_records/models/equipment.py:9
+msgid "Inventory Number"
+msgstr "Inventar raqami"
+
+#: repair_records/models/equipment.py:11
+#: repair_records/models/equipment_node.py:8
+#: repair_records/models/repair_type.py:11
+#: repair_records/models/work_action.py:8 repair_records/models/work_type.py:8
+#: repair_records/utils.py:207 repair_records/views/list_user.py:22
+msgid "Name"
+msgstr "Nom"
+
+#: repair_records/models/equipment.py:13
+#: repair_records/models/repair_type.py:13
+#: repair_records/models/work_type.py:10
+#: repair_records/views/summary_repairrecord.py:29
+msgid "Section"
+msgstr "Uchastka"
+
+#: repair_records/models/equipment.py:16
+#: repair_records/views/summary_repairrecord.py:32
+msgid "Probab. of Breaking"
+msgstr "Buzilish extimolligi"
+
+#: repair_records/models/equipment.py:17
+#: repair_records/views/summary_repairrecord.py:33
+msgid "Affect of Breaking"
+msgstr "Buzilish ta'siri"
+
+#: repair_records/models/equipment.py:23
+#: repair_records/models/equipment_node.py:10 repair_records/utils.py:177
+msgid "Equipment"
+msgstr "Jixoz"
+
+#: repair_records/models/equipment.py:24
+msgid "Equipments"
+msgstr "Jixozlar"
+
+#: repair_records/models/equipment_inactive_time.py:8
+msgid "Active"
+msgstr "Faol"
+
+#: repair_records/models/equipment_inactive_time.py:9
+msgid "Inactive"
+msgstr "Nofaol"
+
+#: repair_records/models/equipment_inactive_time.py:13
+msgid "Start/End time fo Inactivity"
+msgstr "Nofaollikning boshlanish/tugash vaqti"
+
+#: repair_records/models/equipment_inactive_time.py:15
+msgid "Activity Type"
+msgstr "Faoliyat turi"
+
+#: repair_records/models/equipment_inactive_time.py:22
+msgid "Equipment Inactive Time"
+msgstr "Jixozning Faol Boʻlmagan Vaqti"
+
+#: repair_records/models/equipment_inactive_time.py:23
+msgid "Equipment Inactive Times"
+msgstr "Jixozning Faol Boʻlmagan Vaqtlari"
+
+#: repair_records/models/equipment_node.py:17
+msgid "Equipment Node"
+msgstr "Uzel"
+
+#: repair_records/models/equipment_node.py:18
+msgid "Equipment Nodes"
+msgstr "Uzellar"
+
+#: repair_records/models/repair_record.py:10
+msgid "Work Done"
+msgstr "Amalga oshirilgan ishlar"
+
+#: repair_records/models/repair_record.py:12
+msgid "Start Time"
+msgstr "Boshlangich vaqti"
+
+#: repair_records/models/repair_record.py:13
+msgid "End Time"
+msgstr "Tugatish vaqti"
+
+#: repair_records/models/repair_record.py:15
+msgid "Total Time"
+msgstr "Umumiy vaqt"
+
+#: repair_records/models/repair_record.py:19
+msgid "Repair Record"
+msgstr "Ta'mir Yozmasi"
+
+#: repair_records/models/repair_type.py:10
+msgid "CodeName"
+msgstr "Kod"
+
+#: repair_records/models/repair_type.py:20 repair_records/utils.py:139
+msgid "Repair Type"
+msgstr "Ta'mir turi"
+
+#: repair_records/models/repair_type.py:21
+msgid "Repair Types"
+msgstr "Ta'mir turlari"
+
+#: repair_records/models/work_type.py:17
+msgid "Work Type"
+msgstr "Ish turi"
+
+#: repair_records/models/work_type.py:18
+msgid "Work Types"
+msgstr "Ish turlari"
+
+#: repair_records/utils.py:111
+msgid "Number of repair works"
+msgstr "Ta'mirlash ishlari soni"
+
+#: repair_records/utils.py:138
+msgid "Distribution of the number of repair works by repair types"
+msgstr "Ta'mirlash ishlari sonini ta'mirlash turlari bo'yicha taqsimlash"
+
+#: repair_records/utils.py:140 repair_records/utils.py:206
+msgid "Number of Repair Works"
+msgstr "Ta'mirlash ishlari soni"
+
+#: repair_records/utils.py:175
+msgid "Distribution of Repair Counts by Repair Type"
+msgstr "Ta'mirlash turlari bo'yicha ta'mirlash hisoblarini taqsimlash"
+
+#: repair_records/utils.py:176
+msgid "Number of Repairs"
+msgstr "Ta'mirlashlar soni"
+
+#: repair_records/utils.py:205
+msgid "Distribution of the number of repair works by master"
+msgstr "Master bo'yicha ta'mirlash ishlari sonini taqsimlash"
+
+#: repair_records/views/add_repairrecord.py:87
+msgid "Record not found"
+msgstr "Yozuv topilmadi"
+
+#: repair_records/views/add_repairrecord.py:90
+msgid "You are not allowed to view this record"
+msgstr "Sizga bu yozuvni koʻrishga ruxsat berilmagan"
+
+#: repair_records/views/add_repairrecord.py:93
+msgid "Record is not summarized"
+msgstr "Yozuv umumlashtirilmagan"
+
+#: repair_records/views/list_repairrecord.py:134
+#, python-brace-format
+msgid "{days} days "
+msgstr "{days} kun "
+
+#: repair_records/views/list_repairrecord.py:136
+#, python-brace-format
+msgid "{hours} hours "
+msgstr "{hours} soat "
+
+#: repair_records/views/list_repairrecord.py:138
+#, python-brace-format
+msgid "{minutes} minutes"
+msgstr "{minutes} daqiqa "
+
+#: repair_records/views/list_repairrecord.py:140
+#, python-brace-format
+msgid "{seconds} seconds"
+msgstr "{seconds} soniya"
+
+#: repair_records/views/list_user.py:24
+msgid "Type"
+msgstr "Turi"
+
+#: repair_records/views/list_user.py:25
+msgid "Count"
+msgstr "Soni"
+
+#: repair_records/views/list_user.py:73
+msgid "Performer"
+msgstr "Ijrochi"
+
+#: repair_records/views/list_user.py:73
+msgid "Master"
+msgstr "Master"
+
+#: repair_records/views/mass_upload_repairrecord.py:50
+msgid "Mass upload was successful!"
+msgstr "Massovaya zagruzka muvaffaqiyatli yakunlandi!"
+
+#: repair_records/views/mass_upload_repairrecord.py:52
+msgid "The file is not excel file"
+msgstr "Fayl Excel emas"
+
+#: repair_records/views/mass_upload_repairrecord.py:65
+#, python-format
+msgid ""
+"Could not manage to open sheet %(name)s!                 Check for "
+"correctness of the sheet"
+msgstr "%(name)s listini ochib boʻlmadi! List toʻgʻriligini tekshiring"
+
+#: repair_records/views/mass_upload_repairrecord.py:105
+#, python-format
+msgid ""
+"Failed to upload Factory on row %(row)s:                                 "
+"%(name)s. Check for correctness of data!"
+msgstr "%(row)s qatoriga zavod yuklanmadi: %(name)s. "
+"%(row)s -qatoridagi zavod %(name)s ni yuklab boʻlmadi: Ma'lumotlar "
+"toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:118
+#, python-format
+msgid ""
+"Failed to upload Factory on row %(row)s:                             "
+"%(name)s. Check for correctness of data!"
+msgstr "%(row)s qatoriga zavod yuklanmadi: %(name)s. "
+"%(row)s -qatoridagi zavod %(name)s ni yuklab boʻlmadi: Ma'lumotlar "
+"toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:166
+#, python-format
+msgid ""
+"Failed to upload Section on row %(row)s:                                 "
+"%(factory)s - %(name)s.                                 Check for "
+"correctness of data!"
+msgstr "%(row)s qatoridagi bo‘limni yuklab bo‘lmadi: %(factory)s - %(name)s. "
+"%(row) -qatoridagi uchastka %(factory)s - %(name)s ni yuklab boʻlmadi: "
+"Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:181
+#, python-format
+msgid ""
+"Failed to upload Section on row %(row)s:                             "
+"%(factory)s - %(name)s.                             Check for correctness of "
+"data!"
+msgstr "%(row)s qatoridagi bo‘limni yuklab bo‘lmadi: %(factory)s - %(name)s. "
+"%(row) -qatoridagi uchastka %(factory)s - %(name)s ni yuklab boʻlmadi: "
+"Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:232
+#, python-format
+msgid ""
+"Failed to upload RepairType on row %(row)s:                                 "
+"%(factory)s - %(codename)s.                                  Check for "
+"correctness of data!"
+msgstr "%(row)s qatoriga RepairType yuklanmadi: %(factory)s - %(codename)s. "
+"%(row) -qatoridagi ta'mir turi %(factory)s - %(codename)s ni yuklab "
+"boʻlmadi: Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:248
+#, python-format
+msgid ""
+"Failed to upload RepairType on row %(row)s:                             "
+"%(factory)s - %(codename)s.                             Check for "
+"correctness of data!"
+msgstr "%(row)s qatoriga RepairType yuklanmadi: %(factory)s - %(codename)s. "
+"%(row) -qatoridagi ta'mir turi %(factory)s - %(codename)s ni yuklab "
+"boʻlmadi: Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:298
+#, python-format
+msgid ""
+"Failed to upload WorkType on row %(row)s:                                 "
+"%(factory)s - %(name)s.                                  Check for "
+"correctness of data!"
+msgstr "%(row)s qatoriga WorkType yuklanmadi: %(factory)s - %(name)s. "
+"%(row) -qatoridagi ta'mir turi %(factory)s - %(codename)s ni yuklab "
+"boʻlmadi: Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:314
+#, python-format
+msgid ""
+"Failed to upload WorkType on row %(row)s:                             "
+"%(factory)s - %(name)s.                             Check for correctness of "
+"data!"
+msgstr "%(row)s qatoriga WorkType yuklanmadi: %(factory)s - %(name)s. "
+"%(row) -qatoridagi ta'mir turi %(factory)s - %(codename)s ni yuklab "
+"boʻlmadi: Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:364
+#, python-format
+msgid ""
+"Failed to upload WorkAction on row %(row)s:                                 "
+"%(factory)s - %(name)s.                                  Check for "
+"correctness of data!"
+msgstr "%(row)s qatoriga WorkAction yuklanmadi: %(factory)s - %(name)s. "
+"%(row) -qatoridagi uchastka %(factory)s - %(name)s ni yuklab boʻlmadi: "
+"Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:380
+#, python-format
+msgid ""
+"Failed to upload WorkAction on row %(row)s:                             "
+"%(factory)s - %(name)s.                             Check for correctness of "
+"data!"
+msgstr "%(row)s qatoriga WorkAction yuklanmadi: %(factory)s - %(name)s. "
+"%(row) -qatoridagi uchastka %(factory)s - %(name)s ni yuklab boʻlmadi: "
+"Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:437
+#, python-format
+msgid ""
+"Failed to upload Equipment on row %(row)s:                                 "
+"%(factory)s %(section)s - %(equipment)s.                                 "
+"Check for correctness of data!"
+msgstr "Uskunani %(row)s qatoriga yuklash amalga oshmadi: %(factory)s %(section)s - %(equipment)s. "
+"%(row) -qatoridagi jihoz %(factory)s %(section)s - %(equipment)s ni yuklab "
+"boʻlmadi: Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:453
+#, python-format
+msgid ""
+"Failed to upload Equipment on row %(row)s:                             "
+"%(factory)s %(section)s - %(equipment)s.                             Check "
+"for correctness of data!"
+msgstr "Uskunani %(row)s qatoriga yuklash amalga oshmadi: %(factory)s %(section)s - %(equipment)s. "
+"%(row) -qatoridagi jihoz %(factory)s %(section)s - %(equipment)s ni yuklab "
+"boʻlmadi: Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:511
+#, python-format
+msgid ""
+"Failed to upload Equipment Node on row "
+"%(row)s:                                 %(factory)s %(section)s - "
+"%(equipment)s - %(node)s.                                 Check for "
+"correctness of data!"
+msgstr "Uskuna tugunini %(row)s qatoriga yuklash amalga oshmadi: %(factory)s %(section)s - %(equipment)s - %(tugun)s. "
+"%(row) -qatoridagi jihoz %(factory)s %(section)s - %(equipment)s ni yuklab "
+"boʻlmadi: Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/mass_upload_repairrecord.py:528
+#, python-format
+msgid ""
+"Failed to upload Equipment Node on row %(row)s:                             "
+"%(factory)s %(section)s - %(equipment)s - "
+"%(node)s.                             Check for correctness of data!"
+msgstr "Uskuna tugunini %(row)s qatoriga yuklash amalga oshmadi: %(factory)s %(section)s - %(equipment)s - %(tugun)s. "
+"%(row) -qatoridagi jihoz %(factory)s %(section)s - %(equipment)s ni yuklab "
+"boʻlmadi: Ma'lumotlar toʻgʻriligini tekshiring!"
+
+#: repair_records/views/summary_repairrecord.py:30
+msgid "Equipment Codename"
+msgstr "Jixoz Kodi"
+
+#: repair_records/views/summary_repairrecord.py:31
+msgid "Equipment Name"
+msgstr "Jixoz Nomi"
+
+#: repair_records/views/summary_repairrecord.py:34
+msgid "Score"
+msgstr "Hisob"
+
+#: repair_records/views/summary_repairrecord.py:177
+msgid "You do not have permission to access this page"
+msgstr "Sizda ushbu sahifaga kirish uchun ruxsat yo'q"
+
+#: repair_records/views/summary_repairrecord.py:205
+msgid "Monday"
+msgstr "dushanba"
+
+#: repair_records/views/summary_repairrecord.py:206
+msgid "Tuesday"
+msgstr "Seshanba"
+
+#: repair_records/views/summary_repairrecord.py:207
+msgid "Wednesday"
+msgstr "chorshanba"
+
+#: repair_records/views/summary_repairrecord.py:208
+msgid "Thursday"
+msgstr "payshanba"
+
+#: repair_records/views/summary_repairrecord.py:209
+msgid "Friday"
+msgstr "Juma"
+
+#: repair_records/views/summary_repairrecord.py:210
+msgid "Saturday"
+msgstr "Shanba"
+
+#: repair_records/views/summary_repairrecord.py:211
+msgid "Sunday"
+msgstr "yakshanba"
+
+#, fuzzy
+#~| msgid "Section"
+#~ msgid "Description"
+#~ msgstr "Uchastka"
+
+#, fuzzy
+#~| msgid "Work Done"
+#~ msgid "Work Action"
+#~ msgstr "Amalga oshirilgan ishlar"
+
+#~ msgid "Performers"
+#~ msgstr "Ijrochilar"
+
+#~ msgid "Reason"
+#~ msgstr "Sabab"
+

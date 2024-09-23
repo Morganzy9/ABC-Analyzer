@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-25 00:21+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: uz \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: accounts/admin.py:40
+msgid "List of Factories"
+msgstr "Zavodlar roʻyhati"
+
+#: accounts/apps.py:8
+msgid "Accounts"
+msgstr "Akkauntlar"
+
+#: accounts/forms.py:15 accounts/models.py:57
+msgid "Username"
+msgstr "Foydalanuvchi nomi"
+
+#: accounts/forms.py:19 accounts/forms.py:25
+msgid "Password"
+msgstr "Parol"
+
+#: accounts/forms.py:27
+msgid "Password confirmation"
+msgstr "Parolni tasdiqlang"
+
+#: accounts/forms.py:39
+msgid "The two password fields didn’t match."
+msgstr "Parol maydonlari mos kelmadi."
+
+#: accounts/forms.py:100
+msgid "permissions"
+msgstr "ruxsatnomalar"
+
+#: accounts/models.py:12 accounts/models.py:42
+msgid "Name"
+msgstr "Ism"
+
+#: accounts/models.py:13
+msgid "Equation"
+msgstr "Formula"
+
+#: accounts/models.py:15 accounts/models.py:97
+msgid "Shift hours"
+msgstr "Smena soatlari"
+
+#: accounts/models.py:21
+msgid "File"
+msgstr "Fayl"
+
+#: accounts/models.py:25 accounts/models.py:44
+msgid "Factory"
+msgstr "Zavod"
+
+#: accounts/models.py:26 accounts/models.py:67
+msgid "Factories"
+msgstr "Zavodlar"
+
+#: accounts/models.py:48
+msgid "Section"
+msgstr "Uchastka"
+
+#: accounts/models.py:49
+msgid "Sections"
+msgstr "Uchastkalar"
+
+#: accounts/models.py:59
+msgid "First name"
+msgstr "Ism"
+
+#: accounts/models.py:61
+msgid "Last name"
+msgstr "Familiya"
+
+#: accounts/models.py:63
+msgid "Is active"
+msgstr "Aktivmi"
+
+#: accounts/models.py:64 accounts/models.py:99
+msgid "Created at"
+msgstr "Yaratilgan vaqti"
+
+#: accounts/models.py:65 accounts/models.py:100
+msgid "Updated at"
+msgstr "Yangilangan vaqti"
+
+#: accounts/models.py:69
+msgid "Is performer"
+msgstr "Ijrochimi"
+
+#: accounts/models.py:87 accounts/models.py:94
+msgid "User"
+msgstr "Foydalanuvchi"
+
+#: accounts/models.py:88
+msgid "Users"
+msgstr "Foydalanuvchilar"
+
+#: accounts/models.py:95
+msgid "Date"
+msgstr "Sana"
+
+#: accounts/models.py:96
+msgid "Is present"
+msgstr "Mavjud"
+
+#: accounts/models.py:104
+msgid "Attendance"
+msgstr "Hozirgilik"
+
+#: accounts/models.py:105
+msgid "Attendances"
+msgstr "Hozirgiliklar"

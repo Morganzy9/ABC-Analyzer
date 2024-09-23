@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Summary report" %}{% endblock %}
+
+{% block css %}
+{{ block.super }}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <link href="https://cdn.datatables.net/v/bs5/dt-1.13.8/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.css" rel="stylesheet">
+  <style>
+    #repair-records td {
+      background-color: transparent !important;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  {% if factory_list %}
+    <div class="row justify-content-end">
+      <div class="col-auto px-1">
+        <select class="form-select form-select-sm" id="factory_list-select" autocomplete="off">
+          {% for name, id in factory_list %}
+          <option value="{{ id }}">{{ name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto ps-1 text-end">
+        <a href="/repair-records/summary-pdf/{{ factory_list.0.1 }}" target="_blank" id="factory_list-a" class="btn btn-sm btn-secondary">{% translate "Download" %}</a>
+      </div>
+    </div>
+  {% endif %}
+ 
+  <div class="row justify-content-between mb-4">
+    <div class="col-auto align-self-center">
+      <h1>{% translate "Summary" %}</h1>
+    </div>
+    <div class="col-auto align-self-center">
+      <div class="row justify-content-end">
+        <div class="col-auto">
+          <select class="form-select" id="filter-by-color">
+            <option value="" selected>{% translate "All" %}</option>
+            <option value="red">{% translate "Red" %}</option>
+            <option value="yellow">{% trans "Yellow" %}</option>
+            <option value="green">{% trans "Green" %}</option>
+          </select>
+        </div>
+        <div class="col-3 text-end">
+          <button type="button" id="pdf-button" class="btn btn-secondary">PDF</button>
+        </div>
+        <div class="col-3 text-end">
+          <a href="{% url 'summary_csv_repair_record' %}" download class="btn btn-secondary" id="csv-button">CSV</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row position-relative">
+    <div class="col-auto position-absolute" style="top: -0.35rem; z-index: 1000 !important">
+      <select class="selectpicker" id="filter-by-factory" autocomplete="off" multiple>
+        <option value="" selected>{% translate "All" %}</option>
+        {% for factory in factories %}style="z-index: 1000 !important"
+          <option value="{{ factory.0 }}">{{ factory.1 }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+  <table id="repair-records" class="display table border-dark" style="width:100%">
+        <thead>
+            <tr></tr>
+        </thead>
+    </table>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+    
+    {% if current_language == 'uz-cr' %}
+        <script>
+            var currentLanguage = 'uz-CR';
+        </script>
+    {% else %}
+        <script>
+            var currentLanguage = '{{ current_language }}';
+        </script>
+    {% endif %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/i18n/defaults-*.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/v/bs5/dt-1.13.8/b-2.4.2/b-html5-2.4.2/r-2.5.0/datatables.min.js"></script>
+    <script>
+
+      const cols = [];
+      var ddd = $.each({{ cols|safe }}, function(key, val) {
+        cols.push({ data: key, title: val });
+      });
+
+      console.log(cols);
+
+      const getColor = (score) => {
+        if (score < 0) return "#cccccc"; // gray
+        else if (score <= 0.7) return "#d2f4ea"; // green
+        else if (score <= 1.5) return "#ffe69c"; // yellow
+        return "#dc3545"; // red
+      }
+
+        $(document).ready(function() {
+            var table = $('#repair-records').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{% url 'summary_repair_record' %}",
+                    type: "POST",
+                    data: function (d) {
+                      d.csrfmiddlewaretoken = "{{ csrf_token }}";
+                      d.color = $("#filter-by-color").val();
+                      d.factories = $("#filter-by-factory").val();
+                    },
+                },
+                {#paging: false,#}
+                columns: cols,
+                searching: true,
+                ordering: true,
+                order : [[6, 'desc']],
+                dom: "<'d-none'B><'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>><'row dt-row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                buttons: [
+                  {
+                    extend: "pdfHtml5",
+                    pageSize: "A4",
+                    customize: (doc) => {
+                      // fix cell paddings
+                      doc.styles.tableHeader.margin = [2, 5, 2, 5];
+                      doc.styles.tableBodyOdd.margin = [2, 5, 2, 5];
+                      doc.styles.tableBodyEven.margin = [2, 5, 2, 5];
+
+                      // customize data by color
+                      const table = doc.content[1].table.body;
+
+                      // change header style
+                      for (let i = 0; i < table[0].length; i++) {
+                        table[0][i].fillColor = "";
+                        table[0][i].color = "#000";
+                        table[0][i].border = [false, false, false, true];
+                      }
+
+                      // colorize rows
+                      for (let i = 1; i < table.length; i++) {
+                        var score = table[i][table[i].length - 1].text;
+                        var color = getColor(score);
+
+                        for (let j = 0; j < table[i].length; j++) {
+                          table[i][j].fillColor = color;
+                          table[i][j].border = [false, false, false, true];
+                        }
+                      }
+
+                      // customize layout
+                      doc.content[1].layout = {
+                        vLineColor: '#000',
+                        hLineColor: '#000',
+                        hLineWidth: function (i, node) { return 0.7; },
+                        vLineWidth: function (i, node) { return 0.7; },
+                      };
+                    }
+                  }
+                ],
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/' + currentLanguage + '.json' 
+                }, 
+                "rowCallback": function(row, data) {
+                  // Get the "score" value for this row
+                  const score = data['score'];
+                  // Set the background color based on the "score" value
+                  $(row).css({'background-color': getColor(score)});
+                }
+            });
+
+            $("#filter-by-color").on('change', () => {
+              table.ajax.reload();
+            });
+
+            $("#pdf-button").on('click', () => {
+              $(".buttons-pdf")[0].click();
+            });
+
+            $("#factory_list-select").on('change', (e) => {
+              $("#factory_list-a").attr("href", `/repair-records/summary-pdf/${e.currentTarget.value}`)
+            })
+
+            $("#filter-by-factory").on('change', () => {
+              table.ajax.reload();
+            });
+        });
+    </script>
+{% endblock %}
+

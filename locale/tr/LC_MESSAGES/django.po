@@ -1,0 +1,534 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-27 05:34+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: config/settings.py:137
+msgid "English"
+msgstr "İngilizce"
+
+#: config/settings.py:138 templates/base.html:32 templates/base.html:42
+#: templates/tasks/dashboard.html:41 templates/tasks/dashboard.html:51
+msgid "Russian"
+msgstr "Rusça"
+
+#: config/settings.py:139 templates/base.html:34 templates/base.html:43
+#: templates/tasks/dashboard.html:43 templates/tasks/dashboard.html:52
+msgid "Uzbek Latin"
+msgstr "Özbekçe Latince"
+
+#: config/settings.py:140 templates/base.html:36 templates/base.html:44
+#: templates/tasks/dashboard.html:45 templates/tasks/dashboard.html:53
+msgid "Uzbek Cyrillic"
+msgstr "Özbek Kiril Alfabesi"
+
+#: config/settings.py:141 templates/base.html:38 templates/base.html:45
+#: templates/tasks/dashboard.html:47 templates/tasks/dashboard.html:54
+msgid "Turkish"
+msgstr "Türkçe"
+
+#: templates/admin/accounts/user/submit_line.html:24
+#: templates/repair_record/mass_upload.html:29
+msgid "Save"
+msgstr "Kaydet"
+
+#: templates/admin/accounts/user/submit_line.html:29
+msgid "Change password"
+msgstr "Şifre değiştirme"
+
+#: templates/admin/accounts/user/submit_line.html:34
+msgid "Delete"
+msgstr "Silme"
+
+#: templates/base.html:13
+msgid "ABC-XYZ analyzer"
+msgstr "ABC-XYZ analizörü"
+
+#: templates/base.html:23 templates/tasks/dashboard.html:32
+msgid "Home"
+msgstr "Ev"
+
+#: templates/base.html:50 templates/tasks/dashboard.html:59
+#: templates/tasks/list.html:8 templates/tasks/summary_pdf.html:4
+msgid "Tasks"
+msgstr "Görevler"
+
+#: templates/base.html:55 templates/repair_record/list_user.html:4
+#: templates/repair_record/list_user.html:15 templates/tasks/dashboard.html:64
+msgid "List Users"
+msgstr "Kullanıcıları Listele"
+
+#: templates/base.html:60 templates/tasks/dashboard.html:69
+#: templates/tasks/dashboard.html:366
+msgid "Add"
+msgstr "Ekle"
+
+#: templates/base.html:65 templates/repair_record/mass_upload.html:16
+#: templates/tasks/dashboard.html:74
+msgid "Mass Upload"
+msgstr "Toplu Yükleme"
+
+#: templates/base.html:71 templates/tasks/dashboard.html:80
+msgid "List Reports"
+msgstr "Liste Raporları"
+
+#: templates/base.html:76 templates/tasks/dashboard.html:85
+msgid "Summary Reports"
+msgstr "Özet Raporlar"
+
+#: templates/base.html:83 templates/tasks/dashboard.html:92
+msgid "Logout"
+msgstr "Oturumu Kapat"
+
+#: templates/registration/login.html:23
+msgid "Please correct the error below."
+msgid_plural "Please correct the errors below."
+msgstr[0] "Lütfen aşağıdaki hatayı düzeltin."
+msgstr[1] "Lütfen aşağıdaki hataları düzeltin."
+
+#: templates/registration/login.html:50
+msgid "Forgotten your password or username?"
+msgstr "Şifrenizi veya kullanıcı adınızı mı unuttunuz?"
+
+#: templates/registration/login.html:54
+msgid "Log in"
+msgstr "Giriş yap"
+
+#: templates/repair_record/add.html:4 templates/repair_record/add.html:19
+#: templates/repair_record/mass_upload.html:4
+msgid "Add Repair Record"
+msgstr "Onarım Kaydı Ekleme"
+
+#: templates/repair_record/add.html:95
+msgid "An error occurred while fetching the data"
+msgstr "Veriler alınırken bir hata oluştu"
+
+#: templates/repair_record/equipment.html:4
+msgid "Equipment Info"
+msgstr "Ekipman Bilgisi"
+
+#: templates/repair_record/equipment.html:38
+#: templates/repair_record/equipment.html:40
+#: templates/repair_record/list.html:40 templates/repair_record/list.html:42
+#: templates/repair_record/user.html:37 templates/repair_record/user.html:39
+msgid "Start Date"
+msgstr "Başlangıç Tarihi"
+
+#: templates/repair_record/equipment.html:45
+#: templates/repair_record/equipment.html:47
+#: templates/repair_record/list.html:47 templates/repair_record/list.html:49
+#: templates/repair_record/user.html:44 templates/repair_record/user.html:46
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#: templates/repair_record/equipment.html:51
+#: templates/repair_record/list.html:53 templates/repair_record/user.html:50
+msgid "Search"
+msgstr "Arama"
+
+#: templates/repair_record/equipment.html:61
+msgid "Probab. of Breaking:"
+msgstr "Kırılma ihtimali:"
+
+#: templates/repair_record/equipment.html:67
+msgid "Affect of Breaking:"
+msgstr "Kırılmanın Etkisi:"
+
+#: templates/repair_record/equipment.html:77
+msgid "Add Active/Inactive Time"
+msgstr "Aktif / Aktif Olmayan Zaman Ekle"
+
+#: templates/repair_record/equipment.html:90
+msgid "Inactive Time"
+msgstr "Aktif Olmayan Zaman"
+
+#: templates/repair_record/equipment.html:93
+#: templates/repair_record/equipment.html:105
+msgid "Submit"
+msgstr "Gönder"
+
+#: templates/repair_record/equipment.html:102
+msgid "Active Time"
+msgstr "Aktif Zaman"
+
+#: templates/repair_record/equipment.html:121
+#: templates/repair_record/user.html:76 templates/tasks/list.html:15
+msgid "Date"
+msgstr "Tarih"
+
+#: templates/repair_record/equipment.html:122
+#: templates/repair_record/list.html:74 templates/repair_record/user.html:79
+msgid "Master"
+msgstr "Master"
+
+#: templates/repair_record/equipment.html:123
+#: templates/repair_record/list.html:75 templates/repair_record/user.html:80
+#: templates/tasks/list.html:25 templates/tasks/summary_pdf.html:40
+msgid "Performers"
+msgstr "İşçiler"
+
+#: templates/repair_record/equipment.html:124
+#: templates/repair_record/list.html:78 templates/repair_record/user.html:83
+#: templates/tasks/add.html:91 templates/tasks/list.html:19
+msgid "Repair Type"
+msgstr "Onarım Türü"
+
+#: templates/repair_record/equipment.html:125
+#: templates/repair_record/list.html:79 templates/repair_record/user.html:84
+#: templates/tasks/add.html:174 templates/tasks/list.html:22
+#: templates/tasks/summary_pdf.html:45
+msgid "Reason"
+msgstr "Sebep"
+
+#: templates/repair_record/equipment.html:126
+#: templates/repair_record/list.html:80 templates/repair_record/user.html:85
+msgid "Work Done"
+msgstr "Yapılan İş"
+
+#: templates/repair_record/equipment.html:127
+#: templates/repair_record/list.html:81 templates/repair_record/user.html:86
+msgid "Total Time"
+msgstr "Toplam Süre"
+
+#: templates/repair_record/list.html:4 templates/repair_record/list.html:33
+msgid "List of reports"
+msgstr "Raporların listesi"
+
+#: templates/repair_record/list.html:61
+#: templates/repair_record/list_user.html:24
+#: templates/repair_record/summary.html:41
+#: templates/repair_record/summary.html:59 templates/repair_record/user.html:65
+msgid "All"
+msgstr "Tümü"
+
+#: templates/repair_record/list.html:70
+msgid "Start time"
+msgstr "Başlangıç Tarihi"
+
+#: templates/repair_record/list.html:71
+msgid "End time"
+msgstr "Bitiş Tarihi"
+
+#: templates/repair_record/list.html:72 templates/repair_record/user.html:77
+#: templates/tasks/add.html:33
+msgid "Factory"
+msgstr "Fabrika"
+
+#: templates/repair_record/list.html:73 templates/repair_record/user.html:78
+#: templates/tasks/add.html:47 templates/tasks/list.html:16
+#: templates/tasks/summary_pdf.html:36
+msgid "Section"
+msgstr "Bölüm"
+
+#: templates/repair_record/list.html:76 templates/repair_record/user.html:81
+msgid "Equipment Codename"
+msgstr "Ekipman Kod Adı"
+
+#: templates/repair_record/list.html:77 templates/repair_record/user.html:82
+#: templates/tasks/list.html:17
+msgid "Equipment Name"
+msgstr "Ekipman Adı"
+
+#: templates/repair_record/mass_upload.html:21
+msgid "Close"
+msgstr "Kapat"
+
+#: templates/repair_record/summary.html:4
+msgid "Summary report"
+msgstr "Özet rapor"
+
+#: templates/repair_record/summary.html:28
+msgid "Download"
+msgstr "İndir"
+
+#: templates/repair_record/summary.html:35 templates/tasks/summary.html:4
+msgid "Summary"
+msgstr "Özet"
+
+#: templates/repair_record/summary.html:42
+msgid "Red"
+msgstr "Kırmızı"
+
+#: templates/repair_record/summary.html:43
+msgid "Yellow"
+msgstr "Sarı"
+
+#: templates/repair_record/summary.html:44
+msgid "Green"
+msgstr "Yeşil"
+
+#: templates/repair_record/user.html:4
+msgid "User Info"
+msgstr "Kullanıcı Bilgileri"
+
+#: templates/tasks/add.html:24 templates/tasks/add.html:26
+msgid "Add Task"
+msgstr "Görev Ekleme"
+
+#: templates/tasks/add.html:61 templates/tasks/summary_pdf.html:37
+msgid "Equipment"
+msgstr "Ekipman"
+
+#: templates/tasks/add.html:77 templates/tasks/list.html:18
+#: templates/tasks/summary_pdf.html:38
+msgid "Equipment Node"
+msgstr "Ekipman Düğümü"
+
+#: templates/tasks/add.html:105 templates/tasks/list.html:20
+#: templates/tasks/summary_pdf.html:35
+msgid "Work Type"
+msgstr "İş Türü"
+
+#: templates/tasks/add.html:121 templates/tasks/list.html:21
+#: templates/tasks/summary_pdf.html:39
+msgid "Work Action"
+msgstr "İş Eylemi"
+
+#: templates/tasks/add.html:135
+msgid "Allocated Time"
+msgstr "Ayrılan Zaman"
+
+#: templates/tasks/add.html:149
+msgid "Frequency"
+msgstr "Frekans"
+
+#: templates/tasks/add.html:158
+msgid "One-time"
+msgstr "Tek seferlik"
+
+#: templates/tasks/add.html:159
+msgid "Daily"
+msgstr "Günlük"
+
+#: templates/tasks/add.html:160
+msgid "One time per week"
+msgstr "Haftada bir kez"
+
+#: templates/tasks/add.html:161
+msgid "Ten days"
+msgstr "On gün"
+
+#: templates/tasks/add.html:162
+msgid "One time every two weeks"
+msgstr "Her iki haftada bir"
+
+#: templates/tasks/add.html:163
+msgid "One time per month"
+msgstr "Ayda bir kez"
+
+#: templates/tasks/add.html:164
+msgid "Once every three months"
+msgstr "Her üç ayda bir"
+
+#: templates/tasks/add.html:165
+msgid "Once every six months"
+msgstr "Her altı ayda bir"
+
+#: templates/tasks/add.html:166
+msgid "One time per year"
+msgstr "Yılda bir kez"
+
+#: templates/tasks/add.html:190 templates/tasks/list.html:23
+#: templates/tasks/summary_pdf.html:46
+msgid "Comment"
+msgstr "Yorum"
+
+#: templates/tasks/attendance.html:3
+msgid "Check In"
+msgstr "Giriş Yapın"
+
+#: templates/tasks/dashboard.html:112
+msgid "Filter"
+msgstr "Filtre"
+
+#: templates/tasks/dashboard.html:293
+msgid "Something went wrong! Please try again."
+msgstr "Bir şeyler ters gitti! Lütfen tekrar deneyin."
+
+#: templates/tasks/dashboard.html:502
+msgid "Discard"
+msgstr "Iskarta"
+
+#: templates/tasks/dashboard.html:753
+msgid "An error occurred. Please try again."
+msgstr "Bir hata oluştu. Lütfen tekrar deneyin."
+
+#: templates/tasks/list.html:14 templates/tasks/summary_pdf.html:34
+msgid "ID"
+msgstr "ID"
+
+#: templates/tasks/list.html:24
+msgid "Allocatted Time"
+msgstr "Ayrılan Zaman"
+
+#: templates/tasks/summary.html:6
+msgid "Manpower:"
+msgstr "İnsan gücü:"
+
+#: templates/tasks/summary.html:17
+msgid "Export PDF"
+msgstr "PDF Dışa Aktar"
+
+#: templates/tasks/summary_pdf.html:28
+msgid "Date: "
+msgstr "Tarih: "
+
+#: templates/tasks/summary_pdf.html:29
+msgid "Work Type: "
+msgstr "Çalışma Şekli: "
+
+#: templates/tasks/summary_pdf.html:41
+msgid "Is task completed (yes/no)"
+msgstr "Görev tamamlandı mı (evet/hayır)"
+
+#: templates/tasks/summary_pdf.html:42
+msgid "Start of work"
+msgstr "İşe başlama"
+
+#: templates/tasks/summary_pdf.html:43
+msgid "End of work"
+msgstr "İş bitimi"
+
+#: templates/tasks/summary_pdf.html:44
+msgid "Those actually involved in the work"
+msgstr "Çalışmaya fiilen dahil olanlar"
+
+#: templates/tasks/summary_pdf.html:47
+msgid "Work result"
+msgstr "Çalışma sonucu"
+
+#, fuzzy
+#~| msgid "Allocated Time"
+#~ msgid "Socket Read Timeout"
+#~ msgstr "Ayrılan Zaman"
+
+#, fuzzy
+#~| msgid "Change password"
+#~ msgid "Password"
+#~ msgstr "Şifre değiştirme"
+
+#, fuzzy
+#~| msgid "Frequency"
+#~ msgid "Urgency"
+#~ msgstr "Frekans"
+
+#, fuzzy
+#~| msgid "User Info"
+#~ msgid "To User ID"
+#~ msgstr "Kullanıcı Bilgileri"
+
+#, fuzzy
+#~| msgid "Work Type"
+#~ msgid "Workspace"
+#~ msgstr "İş Türü"
+
+#, fuzzy
+#~| msgid "Add Task"
+#~ msgid "Add Tokens"
+#~ msgstr "Görev Ekleme"
+
+#, fuzzy
+#~| msgid "Work Type"
+#~ msgid "Icon Type"
+#~ msgstr "İş Türü"
+
+#, fuzzy
+#~| msgid "Repair Type"
+#~ msgid "Message Type"
+#~ msgstr "Onarım Türü"
+
+#, fuzzy
+#~| msgid "Section"
+#~ msgid "Action"
+#~ msgstr "Bölüm"
+
+#, fuzzy
+#~| msgid "Master"
+#~ msgid "Master Key"
+#~ msgstr "Master"
+
+#, fuzzy
+#~| msgid "Log in"
+#~ msgid "Log PID"
+#~ msgstr "Giriş yap"
+
+#, fuzzy
+#~| msgid "Repair Type"
+#~ msgid "Alert Type"
+#~ msgstr "Onarım Türü"
+
+#, fuzzy
+#~| msgid "Mass Upload"
+#~ msgid "Upload"
+#~ msgstr "Toplu Yükleme"
+
+#, fuzzy
+#~| msgid "Factory"
+#~ msgid "directory"
+#~ msgstr "Fabrika"
+
+#, fuzzy
+#~| msgid "Section"
+#~ msgid "Syndication"
+#~ msgstr "Bölüm"
+
+#, fuzzy, python-format
+#~| msgid "Please correct the error below."
+#~| msgid_plural "Please correct the errors below."
+#~ msgid "Please correct the duplicate data for %(field)s."
+#~ msgstr "Lütfen aşağıdaki hatayı düzeltin."
+
+#, fuzzy
+#~| msgid "Please correct the error below."
+#~| msgid_plural "Please correct the errors below."
+#~ msgid "Please correct the duplicate values below."
+#~ msgstr "Lütfen aşağıdaki hatayı düzeltin."
+
+#, fuzzy
+#~| msgid "Red"
+#~ msgid "Wed"
+#~ msgstr "Kırmızı"
+
+#, fuzzy
+#~| msgid "Search"
+#~ msgid "March"
+#~ msgstr "Arama"
+
+#, fuzzy
+#~| msgid "Summary"
+#~ msgid "mar"
+#~ msgstr "Özet"
+
+#, fuzzy
+#~| msgid "Summary"
+#~ msgid "may"
+#~ msgstr "Özet"
+
+#, fuzzy
+#~| msgid "Search"
+#~ msgctxt "abbrev. month"
+#~ msgid "March"
+#~ msgstr "Arama"
+
+#, fuzzy
+#~| msgid "Search"
+#~ msgctxt "alt. month"
+#~ msgid "March"
+#~ msgstr "Arama"
+
+#~ msgid "Repair Records"
+#~ msgstr "Onarım Kayıtları"

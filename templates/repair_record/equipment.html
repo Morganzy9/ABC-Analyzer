@@ -1,0 +1,423 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Equipment Info" %}{% endblock %}
+
+{% block css %}
+{{ block.super }}
+  <style>
+    /* For devices sm and xs */
+    @media (max-width: 576px) {
+        .label-on-border {
+            margin-top: -0.75rem !important;
+        }
+    }
+
+    /* For any other devices */
+    @media (min-width: 577px) {
+        .label-on-border {
+            margin-top: -0.25rem !important;
+        }
+    }
+  </style>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+{% endblock %}
+
+{% block content %}
+      <div class="row align-items-center">
+        <div class="col-sm-12 col-md-5">
+          <h1 class="">{{ name }}</h1>
+        </div>
+        <div class="col">
+          <div class="row align-items-center justify-content-end">
+            <div class="col-sm-12 col-md-auto align-items-center">
+              <div class="d-md-inline-block mb-3 mb-md-0">
+                <label for="startDateInput" class="ms-2 position-absolute label-on-border">
+                  <span class="h6 small bg-white text-muted px-1">{% translate "Start Date" %}</span>
+                </label>
+                <input type="date" class="form-control mt-2 mb-2" id="startDateInput" placeholder={% translate "Start Date" %}>
+              </div>
+              <div class="d-none d-md-inline-block">─</div>
+              <div class="d-md-inline-block">
+                <label for="endDateInput" class="ms-2 position-absolute label-on-border">
+                  <span class="h6 small bg-white text-muted px-1">{% translate "End Date" %}</span>
+                </label>
+                <input type="date" class="form-control mt-2 mb-2" id="endDateInput" placeholder={% translate "End Date" %}>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-auto d-grid">
+              <button class="btn btn-secondary" id="searchButton">{% translate "Search" %}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-secondary mb-4">{{ factory }} > {{ section }} > {{ codename }}</p>
+
+      <div class="row justify-content-between">
+          <div class="col-12 col-md-5">
+              <div class="row justify-content-between">
+                  <span class="col fw-bold">{% translate "Probab. of Breaking:" %}</span>
+                  <span class="col text-end">{{ prob_breaking }}</span>
+              </div>
+          </div>
+          <div class="col-12 col-md-5">
+              <div class="row justify-content-between">
+                  <span class="col fw-bold">{% translate "Affect of Breaking:" %}</span>
+                  <span class="col text-end">{{ break_affect }}</span>
+              </div>
+          </div>
+      </div>
+      <div id="stats" class="row mb-4 justify-content-between">
+      </div>
+
+      <div id="chartContainer" class="d-none" style="height: 300px;"></div>
+      <div id="inactivityBtnDiv" class="d-flex justify-content-end d-none">
+        <button id="inactivityBtn" class="btn btn-outline-secondary btn-sm" style="margin-top: -1.75rem !important; z-index: 2000;" data-bs-toggle="modal" data-bs-target="#inactivityModal">{% translate "Add Active/Inactive Time" %}</button>
+      </div>
+
+      <div class="modal fade" id="inactivityModal" tabindex="-1" aria-labelledby="inactivityModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="row justify-content-between">
+                <div class="col-12 mb-3">
+                  <form method="post" action="{% url "equipment_time_repair_record" %}" id="inactive_time", autocomplete="off">
+                    {% csrf_token %}
+                    <input type="hidden" name="equipment" id="id_inactive_equipment" value="{{ id }}">
+                    <input type="hidden" name="active_type" value="I">
+                    <label for="id_inactive_datetime" class="form-label">{% translate "Inactive Time" %}</label>
+                    <div class="input-group">
+                      <input id="id_inactive_datetime" name="datetime" class="datetimeinput form-control">
+                      <button type="submit" id="id_inactive_time_btn" class="btn btn-primary">{% translate "Submit" %}</button>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-12">
+                  <form method="post" action="{% url "equipment_time_repair_record" %}" id="active_time", autocomplete="off">
+                    {% csrf_token %}
+                    <input type="hidden" name="equipment" id="id_active_equipment" value="{{ id }}">
+                    <input type="hidden" name="active_type" value="A">
+                    <label for="id_active_datetime" class="form-label">{% translate "Active Time" %}</label>
+                    <div class="input-group">
+                      <input id="id_active_datetime" name="datetime" class="datetimeinput form-control">
+                      <button type="submit" id="id_active_time_btn" class="btn btn-primary">{% translate "Submit" %}</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="my-5">
+
+      <div class="my-4">
+        <table id="repair-records" class="display table table-striped table-hover table-bordered table-responsive" style="width:100%">
+          <thead>
+              <tr>
+                  <th>{% translate "Date" %}</th>
+                  <th>{% translate "Master" %}</th>
+                  <th>{% translate "Performers" %}</th>
+                  <th>{% translate "Repair Type" %}</th>
+                  <th>{% translate "Reason" %}</th>
+                  <th>{% translate "Work Done" %}</th>
+                  <th>{% translate "Total Time" %}</th>
+              </tr>
+          </thead>
+        </table>
+      </div>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+    {% if current_language == 'uz-cr' %}
+    <script>
+        var currentLanguage = 'uz-CR';
+    </script>
+    {% else %}
+    <script>
+        var currentLanguage = '{{ current_language }}';
+    </script>
+    {% endif %}
+  
+    <!-- imports for datetimepicker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>  
+
+    <!-- date-time picker -->
+    <script>
+      $('#id_inactive_datetime').daterangepicker({
+        "singleDatePicker": true,
+        "timePicker": true,
+        "timePicker24Hour": true,
+        "timePickerIncrement": 15,
+        "locale": {
+            "format": "DD/MM/YY HH:mm",
+            "separator": " - ",
+            "applyLabel": "Apply",
+            "cancelLabel": "Cancel",
+            "fromLabel": "From",
+            "toLabel": "To",
+            "customRangeLabel": "Custom",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "Su",
+                "Mo",
+                "Tu",
+                "We",
+                "Th",
+                "Fr",
+                "Sa"
+            ],
+            "monthNames": [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+          ],
+            "firstDay": 1
+        },
+        "alwaysShowCalendars": true,
+        "opens": "center",
+        "drops": "auto"
+      });
+      
+      $('#id_active_datetime').daterangepicker({
+        "singleDatePicker": true,
+        "timePicker": true,
+        "timePicker24Hour": true,
+        "timePickerIncrement": 15,
+        "locale": {
+            "format": "DD/MM/YY HH:mm",
+            "separator": " - ",
+            "applyLabel": "Apply",
+            "cancelLabel": "Cancel",
+            "fromLabel": "From",
+            "toLabel": "To",
+            "customRangeLabel": "Custom",
+            "weekLabel": "W",
+            "daysOfWeek": [
+                "Su",
+                "Mo",
+                "Tu",
+                "We",
+                "Th",
+                "Fr",
+                "Sa"
+            ],
+            "monthNames": [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+          ],
+            "firstDay": 1
+        },
+        "alwaysShowCalendars": true,
+        "opens": "center",
+        "drops": "auto"
+      });
+    </script>
+
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.canvasjs.com/jquery.canvasjs.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var table = $('#repair-records').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: ".",
+                    type: "POST",
+                    data: function (d) {
+                      d.csrfmiddlewaretoken = "{{ csrf_token }}";
+                      d.start_date = $("#startDateInput").val();
+                      d.end_date = $("#endDateInput").val();
+                    }
+                },
+                columns: [
+                    { data: "date" },
+                    { data: "master" },
+                    { data: "performers" },
+                    { data: "repair_type" },
+                    { data: "reason" },
+                    { data: "work_done" },
+                    { data: "total_time" },
+                ],
+                {#paging: false,#}
+                searching: true,
+                ordering: true,
+                order: [[0, 'desc']],
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/' + currentLanguage + '.json' 
+                },
+                "drawCallback": function(settings) {
+                  if (!$.isEmptyObject(settings.json.graph)) {
+                      $("#chartContainer").removeClass("d-none");
+                      $("#inactivityBtnDiv").removeClass("d-none");
+                  }
+
+                    renderStats(settings.json);
+                    renderGraph(settings.json);
+                }
+              });
+ 
+            const renderStats = (data) => {
+                let html = '';
+
+                Object.keys(data.type_count).forEach(
+                    (key) => {
+                        html += `
+                            <div class="col-12 col-md-5">
+                                <div class="row justify-content-between">
+                                    <span class="col fw-bold">${key}</span>
+                                    <span class="col text-end">${data.type_count[key]}</span>
+                                </div>
+                            </div>
+                        `
+                    }
+                )
+
+                $("#stats").html(html);
+            }
+
+            const renderGraph = (data) => {
+                const options = {
+                    animationEnabled: true,
+                    theme: "light2",
+                    axisY: {
+                        interval: 1
+                    },
+                    axisY2: {
+                      maximum: 24 * 3600,
+                      labelFormatter: function (e) {
+                          // Custom label formatting for %H:%M
+                          var hours = Math.floor(e.value / 3600);
+                          var minutes = (e.value % 3600 / 60).toFixed(0);
+                          return hours + ":" + (minutes < 10 ? "0" : "") + minutes;
+                      }
+                    },
+                    axisX: {
+                        valueFormatString: "DD MM"
+                    },
+                    toolTip: {
+                        shared: true
+                    },
+                    legend: {
+                        cursor: "pointer",
+                        verticalAlign: "bottom",
+                        horizontalAlign: "left",
+                        dockInsidePlotArea: false,
+                        itemclick: toogleDataSeries
+                    },
+                    data: [
+                        ...Object.entries(data.graph).map(([key, dataset]) => ({
+                            type: "spline",
+                            showInLegend: true,
+                            name: key,
+                            markerType: "square",
+                            xValueFormatString: "DD MMM, YYYY",
+                            dataPoints: dataset.map(item => ({
+                                x: new Date(item.date),
+                                y: item.count,
+                            }))
+                        })),
+                        {
+                            type: "column",
+                            showInLegend: true,
+                            name: "Inactive",
+                            markerType: "square",
+                            axisYType: "secondary",
+                            xValueFormatString: "DD MMM, YYYY",
+                            dataPoints: Object.entries(data.inactivity).map(([key, item]) => ({
+                                x: new Date(key),
+                                y: toTime(item),
+                                toolTipContent: `Inactive: ${item}`,
+                            }))
+                        }
+                    ]
+                };
+
+              $("#chartContainer").CanvasJSChart(options);
+
+              $(".canvasjs-chart-credit").remove();
+            }
+            function toogleDataSeries(e){
+                if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else{
+                    e.dataSeries.visible = true;
+                }
+                e.chart.render();
+            }
+            function toTime(time){
+              time = time.split(/:/);
+              return time[0] * 3600 + time[1] * 60;
+            }
+
+            $("#searchButton").on("click", () => {
+                table.ajax.reload();
+            });
+
+            // Prevent Negative Range
+            $("#endDateInput").attr("min", $("#startDateInput").val());
+            $("#startDateInput").attr("max", $("#endDateInput").val());
+
+            $("#startDateInput").on("change", () => {
+                $("#endDateInput").attr("min", this.activeElement.value);
+            });
+            $("#endDateInput").on("change", () => {
+                $("#startDateInput").attr("max", this.activeElement.value);
+            });
+        });
+    </script>
+
+    <!-- change format before submit, so that it is acceptable by django -->
+    <script>
+        function formatDateToISO(dateTime) {
+            const [dateString, time] = dateTime.split(' ');
+            const [day, month, year] = dateString.split('/');
+            const [hours, minutes] = time.split(':');
+
+            // Assuming your date is in the format DD/MM/YY HH:mm
+            const isoDate = `20${year}-${month}-${day}T${hours}:${minutes}:00`;
+
+            return isoDate;
+        }
+
+        $(document).ready(function() {
+            $('#id_inactive_time_btn').click(function(event) {
+              const datetime = $('#id_inactive_datetime');
+              datetime.val(formatDateToISO(datetime.val()));
+            });
+
+            $('#id_active_time_btn').click(function(event) {
+              const datetime = $('#id_active_datetime');
+              datetime.val(formatDateToISO(datetime.val()));
+            });
+        });
+    </script>
+{% endblock %}
+

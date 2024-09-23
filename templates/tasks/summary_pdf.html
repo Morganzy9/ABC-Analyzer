@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Tasks" %}{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<style>
+@page {
+  size: A4 landscape;
+  margin: 5%;
+}
+body {
+  font-family: sans-serif;
+  font-size: 0.5rem;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<body class="p-1">
+
+{% for repair_record in data.repair_records %}
+<div class="d-flex justify-content-between text-black">
+    <p class="fs3-text">{% translate "Date: " %} {{ data.date }}</p>
+    <p class="fs3-text">{% translate "Work Type: " %} {{ repair_record.0.repair_type }}</p>
+</div>
+<table class="table table-sm table-bordered mb-4">
+    <thead>
+        <tr>
+            <th>{% translate "ID" %}</th>
+            <th>{% translate "Work Type" %}</th>
+            <th>{% translate "Section" %}</th>
+            <th>{% translate "Equipment" %}</th>
+            <th>{% translate "Equipment Node" %}</th>
+            <th>{% translate "Work Action" %}</th>
+            <th>{% translate "Performers" %}</th>
+            <th>{% translate "Is task completed (yes/no)" %}</th>
+            <th>{% translate "Start of work" %}</th>
+            <th>{% translate "End of work" %}</th>
+            <th>{% translate "Those actually involved in the work" %}</th>
+            <th>{% translate "Reason" %}</th>
+            <th>{% translate "Comment" %}</th>
+            <th>{% translate "Work result" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in repair_record %}
+        <tr>
+            <td>{{ record.id }}</td>
+            <td>{{ record.work_type }}</td>
+            <td>{{ record.section }}</td>
+            <td>{{ record.equipment }}</td>
+            <td>{{ record.equipment_node }}</td>
+            <td>{{ record.work_action }}</td>
+            <td>{{ record.performers }}</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>{{ record.reason }}</td>
+            <td>{{ record.comment }}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+</body>
+{% endblock %}

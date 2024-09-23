@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<div class="d-flex justify-content-between row px-2 pt-2">
+  <h5 class="col-auto pt-0">{% translate "Summary" %}</h5>
+  <p class="col-auto text-body-secondary rounded" id="manpower">
+    ⚡️ {% translate "Manpower:" %}
+    <span id="manpower-current"></span>
+    /
+    <span id="manpower-total"></span>
+  </p>
+</div>
+
+<ul class="list-group pb-2" id="tasks_summary_ul">
+</ul>
+<!-- add button to export pdf -->
+<div class="d-flex justify-content-end">
+  <button class="btn btn-primary btn-sm" id="export-pdf">{% translate "Export PDF" %}</button>
+</div>

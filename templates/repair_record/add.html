@@ -1,0 +1,342 @@
+{% extends "base.html" %}
+
+{% load i18n crispy_forms_tags %}
+{% block title %}{% translate "Add Repair Record" %}{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+  <style>
+    textarea {
+      height: 80px !important;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h1 class="my-4">{% translate "Add Repair Record" %}</h1>
+  <form id="form-id" autocomplete="off">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="ID" aria-describedby="button-id">
+      <button class="btn btn-outline-secondary" type="submit" id="button-id">Find</button>
+    </div>
+  </form>
+  <form method="post" id="form" autocomplete="off">
+    {% csrf_token %}
+    {% crispy form form.helper %}
+  </form>
+{% endblock %}
+
+{% block js %}
+  {{ block.super }}
+
+  <!-- imports for datetimepicker -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+  <!-- col adder for input divs -->
+  <script>
+        $(document).ready(function() {
+            // Select elements with IDs starting with "div_id_"
+            $("div[id^='div_id_']").addClass("col");
+
+            // Add hidden input to ID in forms
+            $("#form").append('<input type="hidden" id="id_id" name="id" value="">');
+        });
+  </script>
+
+
+  <!-- send id form from-id to retrieve a data -->
+  <script>
+    $(document).ready(function() {
+      $('#form-id').submit(function(event) {
+        event.preventDefault();
+        const id = $(this).find('input').val();
+        $.ajax({
+          url: "/repair-records/get-info/" + id,
+          success: function(data) {
+            const form = $('#form');
+
+            // disable change events
+            form.find('#id_factory').off('change');
+            form.find('#id_section').off('change');
+
+            setValues('#id_factory', data.factory[0], data.factory[1], form);
+            setValues('#id_section', data.section[0], data.section[1], form);
+            setValues('#id_master', data.master[0], data.master[1], form);
+            setValues('#id_equipment', data.equipment[0], data.equipment[1], form);
+            setValues('#id_repair_type', data.repair_type[0], data.repair_type[1], form);
+
+            // set performers
+            const performers = data.performers;
+            form.find('#id_performers').empty();
+            $.each(performers, function(index, performer) {
+              form.find('#id_performers').append($('<option>', {
+                value: performer[0],
+                text: performer[1] + ' ' + performer[2],
+                selected: true
+              }));
+            });
+            form.find('#id_performers').prop('disabled', true);
+
+
+            form.find('#id_reason').val(data.reason);
+            form.find('#id_reason').prop('disabled', true);
+
+            form.find('#id_id').val(data.id);
+          },
+          error: function(data) {
+            if (data.responseJSON.error !== undefined) {
+              alert(data.responseJSON.error);
+            }
+            else {
+              alert("{% translate 'An error occurred while fetching the data' %}");
+            }
+          }
+        });
+      });
+    });
+
+    function setValues(id, value, text, form) {
+      form.find(id).empty();
+      form.find(id).append($('<option>', {
+        value: value,
+        text: text,
+        selected: true
+      }));
+
+      form.find(id).prop('disabled', true);
+      form.find(id).val(value);
+    }
+
+
+  </script>
+
+  <script>
+    const selectionUrl = "/repair-records/add/selection/";
+  </script>
+
+  <!-- dynamic option selector for certain inputs -->
+  <script>
+    $(document).ready(function() {
+        // Initial disable
+        $('#id_section, #id_master, #id_performers, #id_equipment, #id_repair_type').prop('disabled', true);
+        $("#id_performers").empty();
+
+        // Factory selection handler
+        $('#id_factory').change(function () {
+            var factoryId = $(this).val();
+            updateOptions('section', factoryId, '#id_section');
+
+            // Check if master field is not hidden before making the AJAX request
+            if (!$('#id_master').is(':hidden')) {
+                updateOptions('master', factoryId, '#id_master');
+            } else {
+                $("#id_master").prop('disabled', false);
+            }
+
+            updateOptions('performers', factoryId, '#id_performers');
+
+            updateOptions('repair_type', factoryId, '#id_repair_type');
+        });
+
+        if ($('#id_factory').is(':hidden')) {
+            $('#id_factory').trigger('change');
+        }
+
+        // Section selection handler
+        $('#id_section').change(function () {
+            var sectionId = $(this).val();
+            updateOptions('equipment', sectionId, '#id_equipment');
+        });
+
+        function updateOptions(optionType, parentId, targetId) {
+            $(targetId).empty();
+
+            $.ajax({
+                url: selectionUrl + optionType + '/',
+                data: {'id': parentId},
+                dataType: 'json',
+                success: function (data) {
+
+                    if (data.options && Array.isArray(data.options)) {
+                        var targetField = $(targetId);
+
+                        if (targetId != "#id_performers") {
+                            targetField.append($('<option>', {
+                                value: '',
+                                text: '---------'
+                            }));
+                        }
+
+                        if (data.options.length > 0) {
+                            $.each(data.options, function (index, option) {
+                                if (option.length > 2) {
+                                    targetField.append($('<option>', {
+                                        value: option[0],
+                                        text: option[1] + ' ' + option[2]
+                                    }));
+                                } else {
+                                    targetField.append($('<option>', {
+                                        value: option[0],
+                                        text: option[1]
+                                    }));
+                                }
+                            });
+
+                            targetField.prop('disabled', false);
+                        } else {
+                            targetField.prop('disabled', true);
+                        }
+                    } else {
+                        $(targetId).prop('disabled', true);
+                    }
+                },
+                error: function () {
+                    console.error('Failed to fetch options for ' + optionType);
+                    $(targetId).prop('disabled', true);
+                }
+            });
+        }
+    });
+  </script>
+
+
+  <!-- date-time picker -->
+  <script>
+    $('#id_start_time').daterangepicker({
+      "singleDatePicker": true,
+      "timePicker": true,
+      "timePicker24Hour": true,
+      "timePickerIncrement": 1,
+      "minDate": moment().subtract(100, 'days'),
+      "locale": {
+          "format": "DD/MM/YY HH:mm",
+          "separator": " - ",
+          "applyLabel": "Apply",
+          "cancelLabel": "Cancel",
+          "fromLabel": "From",
+          "toLabel": "To",
+          "customRangeLabel": "Custom",
+          "weekLabel": "W",
+          "daysOfWeek": [
+              "Su",
+              "Mo",
+              "Tu",
+              "We",
+              "Th",
+              "Fr",
+              "Sa"
+          ],
+          "monthNames": [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"
+         ],
+          "firstDay": 1
+      },
+      "alwaysShowCalendars": true,
+      "opens": "center",
+      "drops": "auto"
+    });
+
+    $('#id_end_time').daterangepicker({
+      "singleDatePicker": true,
+      "timePicker": true,
+      "timePicker24Hour": true,
+      "timePickerIncrement": 1,
+      "minDate": moment().startOf('day'),
+      "locale": {
+          "format": "DD/MM/YY HH:mm",
+          "separator": " - ",
+          "applyLabel": "Apply",
+          "cancelLabel": "Cancel",
+          "fromLabel": "From",
+          "toLabel": "To",
+          "customRangeLabel": "Custom",
+          "weekLabel": "W",
+          "daysOfWeek": [
+              "Su",
+              "Mo",
+              "Tu",
+              "We",
+              "Th",
+              "Fr",
+              "Sa"
+          ],
+          "monthNames": [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December"
+         ],
+          "firstDay": 1
+      },
+      "alwaysShowCalendars": true,
+      "opens": "center",
+      "drops": "auto"
+    });
+  </script>
+
+<!-- logic to set boundries for start and end time -->
+<script>
+  $('#id_start_time').on('apply.daterangepicker', function(e, picker) {
+    var datetime = picker.startDate;
+    $('#id_end_time').data('daterangepicker').minDate = datetime;
+  });
+  $('#id_end_time').on('apply.daterangepicker', function(e, picker) {
+    var datetime = picker.startDate;
+    $('#id_start_time').data('daterangepicker').maxDate = datetime;
+  });
+</script>
+  
+  <!-- change format before submit, so that it is acceptable by django -->
+  <script>
+    function formatDateToISO(dateTime) {
+      const [dateString, time] = dateTime.split(' ');
+      const [day, month, year] = dateString.split('/');
+      const [hours, minutes] = time.split(':');
+
+      // Assuming your date is in the format DD/MM/YY HH:mm
+      const isoDate = `20${year}-${month}-${day}T${hours}:${minutes}:00`;
+
+      return isoDate;
+    }
+
+    $(document).ready(function() {
+      $('#submit-id-submit').click(function(event) {
+        // Format date fields before submission
+        const start_timeInput = $('#id_start_time');
+        const end_timeInput = $('#id_end_time');
+
+        start_timeInput.val(formatDateToISO(start_timeInput.val()));
+        end_timeInput.val(formatDateToISO(end_timeInput.val()));
+
+        $(':disabled').each(function(event) {
+          $(this).removeAttr('disabled');
+        });
+      });
+    });
+  </script>
+
+{% endblock %}
+

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load i18n crispy_forms_tags %}
+{% block title %}{% translate "Add Repair Record" %}{% endblock %}
+
+{% block css %}
+  {{ block.super }}
+  <style>
+    textarea {
+      height: 80px !important;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h1 class="my-4">{% translate "Mass Upload" %}</h1>
+  <!-- Messages -->
+  {% for message in messages %}
+    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
+      {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{% translate 'Close' %}"></button>
+    </div>
+  {% endfor %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class="form-actions form-group row justify-content-end">
+      <input type="submit" name="submit" value="{% translate "Save" %}" class="btn btn-primary col-1" id="submit-save">
+    </div>
+  </form>
+{% endblock %}

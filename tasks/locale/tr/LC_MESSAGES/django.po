@@ -1,0 +1,113 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-27 05:32+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: tasks/models/repeated_task.py:9
+msgid "Daily"
+msgstr "Günlük"
+
+#: tasks/models/repeated_task.py:10
+msgid "Weekly"
+msgstr "Haftalık"
+
+#: tasks/models/repeated_task.py:11
+msgid "Monthly"
+msgstr "Aylık"
+
+#: tasks/models/repeated_task.py:12
+msgid "Yearly"
+msgstr "Yıllık"
+
+#: tasks/models/repeated_task.py:15
+msgid "Frequency"
+msgstr "Sıklık"
+
+#: tasks/models/repeated_task.py:17
+msgid "Interval"
+msgstr "Aralık"
+
+#: tasks/models/repeated_task.py:20 tasks/models/scheduled_task.py:8
+msgid "Comment"
+msgstr "Yorum"
+
+#: tasks/models/repeated_task.py:23
+msgid "Task"
+msgstr "Görev"
+
+#: tasks/models/repeated_task.py:24
+msgid "Tasks"
+msgstr "Görevler"
+
+#: tasks/models/scheduled_task.py:16
+msgid "Scheduled Task"
+msgstr "Planlanmış Görev"
+
+#: tasks/models/scheduled_task.py:17
+msgid "Scheduled Tasks"
+msgstr "Planlanmış Görevler"
+
+#: tasks/models/task_base.py:12
+msgid "Factory"
+msgstr "Fabrika"
+
+#: tasks/models/task_base.py:15
+msgid "Section"
+msgstr "Bölüm"
+
+#: tasks/models/task_base.py:19
+msgid "Equipment"
+msgstr "Ekipman"
+
+#: tasks/models/task_base.py:22
+msgid "Node"
+msgstr "Düğüm"
+
+#: tasks/models/task_base.py:26
+msgid "Repair Type"
+msgstr "Tamir Türü"
+
+#: tasks/models/task_base.py:29
+msgid "Work Type"
+msgstr "İş Türü"
+
+#: tasks/models/task_base.py:32
+msgid "Work Action"
+msgstr "İşlem"
+
+#: tasks/models/task_base.py:37
+msgid "Master"
+msgstr "Usta"
+
+#: tasks/models/task_base.py:47
+msgid "Performers"
+msgstr "Yapımcılar"
+
+#: tasks/models/task_base.py:49
+msgid "Allocated Time"
+msgstr "Tahsis Edilen Zaman"
+
+#: tasks/models/task_base.py:51
+msgid "Reason"
+msgstr "Neden"
+
+#: tasks/views/dashboard_tasks.py:15
+msgid ""
+"You can not access this page, because you are not connected to a factory."
+msgstr "Bu sayfaya erişemezsiniz, çünkü bir fabrikaya bağlı değilsiniz."
+
+#: tasks/views/dashboard_tasks.py:18
+msgid ""
+"You can not access this page, because you do not have the permission to add "
+"repair records."
+msgstr ""
+"Bu sayfaya erişemezsiniz, çünkü tamir kayıtları eklemek için izniniz yok."

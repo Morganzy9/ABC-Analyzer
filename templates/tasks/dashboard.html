@@ -1,0 +1,763 @@
+{% extends "base.html" %}
+{% load i18n %} 
+
+{% block title %}Tasks Dashboard{%endblock %} 
+{% block css %}
+{{ block.super }}
+<style>
+  .list-content {
+    overflow: scroll !important;
+  }
+
+  .list-group {
+    max-height: 40vh;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #tasks-list {
+    max-height: 44vh;
+  }
+
+  #tasks_summary_ul {
+    max-height: 75vh;
+    height: 75vh;
+  }
+</style>
+{% endblock %} 
+
+{% block header %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid px-5">
+    <a class="navbar-brand" href="{% url 'home' %}">{% translate "Home" %}</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {% if current_language == 'ru' %}
+              {% translate 'Russian' %}
+            {% elif current_language == 'uz' %}
+              {% translate 'Uzbek Latin' %}
+            {% elif current_language == 'uz-cr' %}
+              {% translate 'Uzbek Cyrillic' %}
+            {% elif current_language == 'tr' %}
+              {% translate 'Turkish' %}
+            {% endif %}
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+            <li><a class="dropdown-item" href="{% url 'change_language' 'ru' %}">{% translate 'Russian' %}</a></li>
+            <li><a class="dropdown-item" href="{% url 'change_language' 'uz' %}">{% translate 'Uzbek Latin' %}</a></li>
+            <li><a class="dropdown-item" href="{% url 'change_language' 'uz-CR' %}">{% translate 'Uzbek Cyrillic' %}</a></li>
+            <li><a class="dropdown-item" href="{% url 'change_language' 'tr' %}">{% translate 'Turkish' %}</a></li>
+          </ul>
+        </li>
+        {% if request.user.is_superuser or perms.repair_records.summarize_repairrecord %}
+          <li class="nav-item">
+            <a class="nav-link" href="/tasks/">{% translate "Tasks" %}</a>
+          </li>
+        {% endif %}
+        {% if request.user.is_superuser or perms.accounts.view_user %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'list_user' %}">{% translate "List Users" %}</a>
+          </li>
+        {% endif %}
+        {% if request.user.is_superuser or perms.repair_records.add_repairrecord %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_repair_record' %}">{% translate "Add" %}</a>
+          </li>
+        {% endif %}
+        {% if request.user.is_superuser %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'mass_upload_repair_record' %}">{% translate "Mass Upload" %}</a>
+          </li>
+        {% endif %}
+
+        {% if request.user.is_superuser or perms.repair_records.view_repairrecord %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'list_repair_record' %}">{% translate "List Reports" %}</a>
+          </li>
+        {% endif %}
+        {% if request.user.is_superuser or perms.repair_records.summarize_repairrecord %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'summary_repair_record' %}">{% translate "Summary Reports" %}</a>
+          </li>
+        {% endif %}
+        <li class="nav-item d-flex align-items-center justify-content-center">
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="btn m-0 p-0 nav-link" type="submit">
+              <span>{% translate "Logout" %}</span>
+            </button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
+
+{% block container %}
+<div class="container-fluid px-5 mt-3 pt-4">
+  <div class="row px-2" style="height: 83vh">
+    <div class="col-12 col-md-9">
+      <div class="row mb-3 pe-3" style="height: 50vh">
+        <div class="col-12 col-md-3 px-0 pe-3">
+          <!-- input to select date -->
+          <form action="" class="row">
+            <div class="input-group input-group-sm mb-3">
+              <input type="date" class="form-control" id="date-input" name="date" required aria-describedby="button-filter">
+              <button class="btn btn-outline-secondary" type="submit" id="button-filter">{% translate "Filter" %}</button>
+            </div>            
+          </form>
+          <div class="border rounded" style="background: #FEFDCA; height:22.5rem;">
+            {% include 'tasks/attendance.html' %}
+          </div>
+        </div>
+        <div class="col-12 col-md-9 border rounded list-content" style="background: #A5DEE5;">
+          {% include 'tasks/list.html' %}
+        </div>
+      </div>
+      <div class="row pe-3">
+        <div class="col-12 border rounded">
+          {% include 'tasks/add.html' %}
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-3 border rounded" style="background: #E0F9B5;">
+      {% include 'tasks/summary.html' %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+{{ block.super }}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/i18n/defaults-*.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+{% if current_language == 'uz-cr' %}
+<script>
+    var currentLanguage = 'uz-CR';
+</script>
+{% else %}
+<script>
+    var currentLanguage = '{{ current_language }}';
+</script>
+{% endif %}
+
+<script>
+  var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+  };
+
+    var date = getUrlParameter('date');
+    if (date) {
+      $('#date-input').val(date);
+    }
+    else {
+      // format is YYYY-MM-DD
+      $('#date-input').val(new Date().toISOString().split('T')[0]);
+    }
+  
+</script>
+
+
+<!--tasks/attendance.html-->
+<script>
+  function addNewUser(id, full_name, status, shift_hours) {
+    let user = document.createElement("li");
+    user.classList.add("list-group-item", "px-4", "bg-warning-subtle", "border-start-0", "border-end-0");
+    user.innerHTML = `
+      <div class="row d-flex
+        justify-content-between align-items-center">
+        <div class="col-6 small p-0">${full_name}</div>
+        <div class="col-auto p-0">
+          <form action="/tasks/attendance/" method="post" class="d-flex justfiy-content-between align-items-center attendance-form">
+            {% csrf_token %}
+            <input type="hidden" class="attendance-date" name="date">
+            <input type="hidden" name="full_name" value="${full_name}"/>
+            <input
+              class="form-check-input"
+              type="hidden"
+              name="id"
+              value="${id}"
+            />
+            <input
+              class="form-check-input attendance-checkbox me-1"
+              type="checkbox"
+              name="is_present"
+              ${status ? "checked" : ""}
+            />
+            <input
+              class="form-control form-control-sm attendance-input"
+              style="width: 60px; display: inline-block;"
+              type="number"
+              name="shift_hours"
+              value="${shift_hours !== undefined ? shift_hours : '{{ shift_hours }}'}"
+              min="1"
+              max="24"
+            />
+            <button type="submit" class="d-none"></button>
+        </div>
+      </div>
+    `;
+
+    document.querySelector("#attendance-ul").appendChild(user);
+  }
+
+
+  const url = "/tasks/attendance/";
+  $(document).ready(() => {
+    $.ajax({
+      url: url,
+      type: "GET",
+      data: {
+          date: $("#date-input").val(),
+      },
+      success: (data) => {
+        console.log(data);
+        data.forEach((user) => {
+          if (user.first_name === null || user.last_name === null) {
+            full_name = user.username;
+          } else {
+            full_name = user.first_name + " " + user.last_name;
+          }
+
+          addNewUser(user.id, full_name, user.is_present, user.shift_hours);
+        });
+
+        const date = $("#date-input").val();
+        $(".attendance-date").val(date);
+
+        manpowerTotal();
+      },
+      error: (error) => {
+        console.log(error);
+      },
+    });  
+  });
+</script>
+
+<script>
+  $(document).on("change", ".attendance-checkbox", function () {
+    manpowerTotal();
+    $(this).closest("form").find("button").click();
+  });
+
+  $(document).on("change", ".attendance-input", function () {
+    manpowerTotal();
+    $(this).closest("form").find("button").click();
+  });
+
+  $(document).on("submit", ".attendance-form", function (e) {
+    e.preventDefault();
+    const form = $(this);
+    const url = form.attr("action");
+    const data = form.serialize();
+
+    $.ajax({
+      url: url,
+      type: "POST",
+      data: data,
+      success: (response) => {
+        console.log(response);
+        // add this user to all select with .selectpicker class in the page as an option
+        id = form.find('input[name="id"]').val();
+        full_name = form.find('input[name="full_name"]').val();
+        status = form.find('input[name="is_present"]').is(":checked");
+
+        if (status === "true") {
+          addOptionToSelects(id, full_name);
+        } else {
+          removeOptionFromSelects(id);
+        }
+      },
+      error: (error) => {
+        alert('{% translate "Something went wrong! Please try again." %}');
+        console.log(error);
+      },
+
+    });
+  });
+</script>
+
+<!--tasks/list.html-->
+<script>
+  var tasks = {};
+  let tasksList;
+</script>
+
+<script>
+  $(document).ready(function() {
+    tasksList = $('#tasks-list').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "{% url 'list_tasks' %}",
+        type: "POST",
+        data: function (d) {
+          d.csrfmiddlewaretoken = "{{ csrf_token }}";
+          d.date = $("#date-input").val();
+        }
+      },
+      columns: [
+        { data: "id", className: 'text-center'},
+        { data: "date", className: 'text-center' },
+        { data: "section", className: 'text-center' },
+        { data: "equipment_name", className: 'text-center' },
+        { data: "equipment_node", className: 'text-center' },
+        { data: "repair_type", className: 'text-center' },
+        { data: "work_type", className: 'text-center' },
+        { data: "work_action", className: 'text-center' },
+        { data: "reason" },
+        { data: "comment" },
+        { data: "allocated_time", className: 'text-center' },
+        {
+          data: null,
+          render: addPerformersSelect,
+        }
+      ],
+      paging: false,
+      searching: false,
+      info: false,
+      ordering: true,
+      order: [[0, 'desc'], [1, 'desc'], [2, 'desc']],
+      language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/' + currentLanguage + '.json' 
+      },
+      "drawCallback": function( settings ) {
+        addOptionsToPerformers($("#tasks-list"));
+        $('#tasks-list').find('td').addClass('py-0');
+        $(".assign-task-form").find('.dropdown-toggle').addClass('btn-sm');
+        $(".assign-task-form").find('.dropdown-toggle').addClass('btn-sm');
+      }
+    });
+  });
+
+  function addPerformersSelect(data, type, row) {
+    tasks[data.id] = data;
+
+    return `
+      <form class="assign-task-form small" data-id="${data.id}">
+        <select
+          class="small selectpicker m-0 p-0"
+          name="performers"
+          multiple
+        >
+        </select>
+        <button id="btn-add-to-summary-${data.id}" class="btn-add-to-summary btn btn-sm btn-success mt-2 mb-2" type="submit">
+          {% translate "Add" %}
+        </button>
+      </form>
+    `
+  }
+
+  function addOptionsToPerformers(task) {
+    $("#attendance-ul").find("li").each((i, e) => {
+      id = $(e).find('input[name="id"]').val();
+      full_name = $(e).find('input[name="full_name"]').val();
+      status = $(e).find('input[name="is_present"]').is(":checked");
+
+      if (status === "true") {
+        var option = `<option value="${id}" title="${full_name}">${full_name}</option>`;
+        $(task).find(".selectpicker").append(option);
+      }
+      
+    })
+    $(task).find(".selectpicker").selectpicker('refresh');
+  }
+
+</script>
+
+<script>
+  // Function to send POST request to repair-records/tasks/summary/ with task id and performers and date
+  function addPerformers(taskData) {
+    $.ajax({
+      url: "/tasks/summary/",
+      type: "POST",
+      data: {
+        "csrfmiddlewaretoken": "{{ csrf_token }}",
+        id: taskData.id,
+        performers: taskData.performers,
+        date: $("#date-input").val(),
+      },
+      success: function (data) {
+        console.log(data);
+        getSummary();
+      },
+    });
+  }
+
+
+  // Add task to summary list if it is not already there on .assign-task-form submit (use addTaskToSummary function)
+  $(document).on("submit", ".assign-task-form", function (e) {
+    console.log(e);
+    e.preventDefault();
+    
+    var taskData = tasks[$(this).data("id")];
+    var performers = $(this).find('select[name="performers"]').val();
+    taskData.performers = performers;
+    var taskExists = false;
+
+    $(this).find(`#btn-add-to-summary-${taskData.id}`).prop("disabled", true);
+
+    for (var i = 0; i < summaries.length; i++) {
+      if (summaries[i].id === taskData.id) {
+        taskExists = true;
+        break;
+      }
+    }
+    if (!taskExists) {
+      addPerformers(taskData);
+      manpowerCurrent();
+    }
+  });
+</script>
+
+<script>
+  // Function to add option to all select with .selectpicker class in the page
+  function addOptionToSelects(id, text) {
+    var option = `<option value="${id}" title="${text}">${text}</option>`;
+    $(".selectpicker").append(option);
+    $(".selectpicker").selectpicker('refresh');
+  }
+  // Function to remove option from all select with .selectpicker class in the page
+  function removeOptionFromSelects(id) {
+    $(".selectpicker option[value='" + id + "']").remove();
+    $(".selectpicker").selectpicker('refresh');
+  }
+
+</script>
+
+
+<!--tasks/summary.html-->
+<script>
+  let shift_hours = parseInt("{{ shift_hours}}");
+</script>
+
+
+<script>
+  // use TasksSummaryExportPDFView to export pdf
+  $(document).ready(function(){
+    $('#export-pdf').on('click', function(){
+      var date = $('#date-input').val();
+      var url = `/tasks/summary/export-pdf/?date=${date}`;
+      window.open(url, '_blank');
+    });
+  });
+</script>
+
+<script>var summaries = {};</script>
+
+<script>
+  $(document).ready(function(){    
+    $('#tasks_summary_ul').on('click', 'button', function(){
+      discardTask(summaries[$(this).data('id')].id);
+      delete summaries[$(this).data('id')];
+      $(this).closest('li').remove();
+      manpowerCurrent();
+    });
+  });
+
+  // write a function to print performers
+  function printPerformers(performers){
+    var performersList = '';
+    performers.forEach((e, i) => {
+      var name = e.name;
+      if (e.name === "None None") name = e.username;
+
+      performersList += `<span class="badge bg-secondary me-1">${name}</span>`;
+    });
+    return performersList;
+  }
+
+  // write a function to add new task to the list by the data provided
+  function addTaskToSummary(data){
+    summaries[data.id] = data;
+
+    $('#tasks_summary_ul').append(`
+      <li class="list-group-item border rounded p-0 mb-3">
+        <input type="hidden" name="task" value="${data}">
+        <div class="card border-0">
+          <div class="card-body">
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-sm btn-danger py-0" data-id="${data.id}">
+                {% translate "Discard" %}
+              </button>
+            </div>
+            <p class="card-title m-0 p-0">
+              ${data.section} > ${data.equipment}, ${data.equipment_node}
+            </p>
+            <p class="card-subtitle small mb-2 text-body-secondary">
+              ${data.work_type}: ${data.work_action}
+            </p>
+            <p class="card-text mb-1">${ printPerformers(data.performers) }</p>
+            <p class="card-text">${data.reason}</p>
+            <hr/>
+            <p class="card-text">${data.comment}</p>
+            <div class="d-flex  justify-content-between align-items-center row">
+                <div class="col-auto">
+                    <div
+                    class="d-inline-block border rounded-3 px-2 small bg-secondary text-center text-white"
+                  >
+                    ID ${data.id}
+                  </div>
+                  <div
+                    class="d-inline-block border rounded-3 px-2 small bg-primary text-center text-white"
+                  >
+                    ${data.repair_type}
+                  </div>
+                  <div
+                    class="d-inline-block border rounded-3 px-2 small bg-success text-center text-white"
+                  >
+                    ${data.allocated_time !== null ? data.allocated_time.slice(0, -3) : 0}
+                  </div>
+                  <div
+                    class="manpower-card-current d-inline-block border rounded-3 px-2 small bg-warning text-center text-white"
+                  >
+                    ${(data.performers.length * (parseInt(data.allocated_time.slice(0, 2)) + data.allocated_time.slice(3, 5) / 60)).toFixed(2) || 0}
+                  </div>
+                </div>
+          </div>
+        </div>
+      </li>
+    `);
+  }
+</script>
+
+<script>
+  // send ajax request to get the summary of tasks
+  function getSummary() {
+    $.ajax({
+      url: "/tasks/summary/",
+      type: "GET",
+      data: {
+        date: $("#date-input").val(),
+      },
+      success: function (data) {
+        shift_hours = data.shift_hours;
+        manpowerTotal();
+        console.log(data);
+
+        $('#tasks_summary_ul').empty();
+        summaries = {};
+
+        data.repair_records.forEach((e) => {
+          addTaskToSummary(e);
+
+          // btn.prop('disabled', true) not working, so this is workaround
+          var btn = $(`#btn-add-to-summary-${e.id}`);
+          btn.addClass('disabled');
+        });
+        manpowerCurrent();
+      },
+      error: function (data) {
+        console.log(data);
+      },
+    });
+  }
+
+  $(document).ready(function () {
+    setTimeout(() => {
+      getSummary();
+    }, 200);
+  });
+</script>
+
+<script>
+  // write a function to send ajax request on discard button click
+  function discardTask(id) {
+    $.ajax({
+      url: "/tasks/summary/discard/",
+      type: "POST",
+      data: {
+        csrfmiddlewaretoken: "{{ csrf_token }}",
+        id: id,
+      },
+      success: function (data) {
+        console.log(data);
+        var btn = $(`#btn-add-to-summary-${id}`);
+        btn.removeClass('disabled');
+        btn.prop('disabled', false);
+      },
+      error: function (data) {
+        console.log(data);
+      },
+    });
+  }
+</script>
+
+<script>
+  function manpowerTotal() {
+    // var total = $("#attendance-ul input[type='checkbox']:checked").length;
+    // $("#manpower-total").text(Math.round(total * shift_hours));
+
+    var ul = $("#attendance-ul");
+    var total = 0;
+
+    ul.find(".list-group-item").each((i, e) => {
+      total += parseInt($(e).find(".attendance-input").val());
+    });
+
+    $("#manpower-total").text(total);
+  }
+
+  // Write a function to calculate manpower current based on performers
+  function manpowerCardCurrent(e) {
+    console.log(e, $(e).find('.allocated-time'));
+    // get selected options from nearest select
+    var selected = $(e).find("#performers").val().length;
+    var allocated_time = $(e).find(".allocated-time").text();
+    console.log(selected, allocated_time);
+    $(e).find("#manpower-current").text(Math.round(selected * allocated_time));
+  }
+
+  // Write a function to calculate manpower current based on performers
+  function manpowerCurrent() {
+    var ul = $("#tasks_summary_ul");
+    var current = 0;
+
+    ul.find(".list-group-item").each((i, e) => {
+      current += parseFloat($(e).find(".manpower-card-current").text());
+    })
+    $("#manpower-current").text(Math.round(current));
+
+    if (parseFloat(current) && parseFloat(current) >= parseFloat($("#manpower-total").text())) {
+      $("#manpower").addClass("bg-danger"); 
+      $(".btn-add-to-summary").prop("disabled", true);
+    } else {
+      $("#manpower").removeClass("bg-danger");
+      $(".btn-add-to-summary").prop("disabled", false);
+    }
+  }
+
+  $(document).ready(function () {
+    manpowerTotal();
+    manpowerCurrent();
+  });
+</script>
+
+
+<!--tasks/add.html-->
+
+<!-- dynamic option selector for certain selects -->
+<script>
+  $(document).ready(function () {
+    var selectionUrl = "/tasks/add/selection/";
+
+    // Initial disable
+    $("#section, #equipment, #equipment_node, #repair_type, #work_type, #work_action").prop(
+      "disabled",
+      true
+    );
+
+    // Initial factory options
+    updateOptions("factory", null, "#factory");
+
+    // Factory selection handler
+    $("#factory").change(function () {
+      var factoryId = $(this).val();
+      updateOptions("section", factoryId, "#section");
+
+      updateOptions("repair_type", factoryId, "#repair_type");
+      updateOptions("work_type", factoryId, "#work_type");
+      updateOptions("work_action", factoryId, "#work_action");
+    });
+
+    // Section selection handler
+    $("#section").change(function () {
+      var sectionId = $(this).val();
+      updateOptions("equipment", sectionId, "#equipment");
+    });
+
+    // Equipment selection handler
+    $("#equipment").change(function () {
+      var equipmentId = $(this).val();
+      updateOptions("equipment_node", equipmentId, "#equipment_node");
+    });
+
+    function updateOptions(optionType, parentId, targetId) {
+      // Fetch options based on optionType, parentId using AJAX
+      // Update options and enable the corresponding field
+      $(targetId).empty();
+
+      $.ajax({
+        url: selectionUrl + optionType + "/",
+        data: { id: parentId },
+        dataType: "json",
+        success: function (data) {
+          // Update options and enable field
+          var targetField = $(targetId);
+          targetField.empty();
+
+          if (targetId != "#id_performers")
+            targetField.append(
+              $("<option>", {
+                value: "",
+                text: "---------",
+              })
+            );
+
+          $.each(data.options, function (index, option) {
+            targetField.append(
+              $("<option>", {
+                value: option[0],
+                text:
+                  option.length > 2 ? option[1] + " " + option[2] : option[1],
+              })
+            );
+          });
+          targetField.prop("disabled", false);
+        },
+      });
+    }
+  });
+</script>
+
+<!-- send ajax request when form is submitted -->
+<script>
+  $(document).ready(function () {
+    var addTaskUrl = "/tasks/add/";
+
+    $("#add-form").submit(function (event) {
+      event.preventDefault(); // disable default form submission      
+      var formData = $(this).serialize(); // get form data
+
+      $.ajax({
+        url: addTaskUrl,
+        type: "POST",
+        data: formData,
+        success: function (response) {
+          console.log(response);
+          tasksList.ajax.reload();
+        },
+        error: function (xhr, status, error) {
+          console.error(error);
+          alert("{% translate 'An error occurred. Please try again.' %}");
+        },
+      });
+    });
+  });
+</script>
+
+<script>
+  $("#add-task-date").val($("#date-input").val());
+</script>
+{% endblock %}

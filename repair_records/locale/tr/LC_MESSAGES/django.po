@@ -1,0 +1,396 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-27 05:32+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: repair_records/admin.py:16 repair_records/models/work_action.py:11
+#: repair_records/views/list_user.py:23
+#: repair_records/views/summary_repairrecord.py:28
+msgid "Factory"
+msgstr "Fabrika"
+
+#: repair_records/apps.py:8 repair_records/models/repair_record.py:20
+msgid "Repair Records"
+msgstr "Onarım Kayıtları"
+
+#: repair_records/forms.py:48
+msgid "Submit"
+msgstr "Gönder"
+
+#: repair_records/forms.py:128
+msgid "Select a file"
+msgstr "Bir dosya seçin"
+
+#: repair_records/forms.py:129
+msgid "Only XLSX, CSV, and XLS files are allowed."
+msgstr "Yalnızca XLSX, CSV ve XLS dosyalarına izin verilir."
+
+#: repair_records/models/equipment.py:9
+msgid "Inventory Number"
+msgstr "Envanter Numarası"
+
+#: repair_records/models/equipment.py:11
+#: repair_records/models/equipment_node.py:8
+#: repair_records/models/repair_type.py:11
+#: repair_records/models/work_action.py:8 repair_records/models/work_type.py:8
+#: repair_records/utils.py:207 repair_records/views/list_user.py:22
+msgid "Name"
+msgstr "İsim"
+
+#: repair_records/models/equipment.py:13
+#: repair_records/models/repair_type.py:13
+#: repair_records/models/work_type.py:10
+#: repair_records/views/summary_repairrecord.py:29
+msgid "Section"
+msgstr "Bölüm"
+
+#: repair_records/models/equipment.py:16
+#: repair_records/views/summary_repairrecord.py:32
+msgid "Probab. of Breaking"
+msgstr "Kırılma Olasılığı"
+
+#: repair_records/models/equipment.py:17
+#: repair_records/views/summary_repairrecord.py:33
+msgid "Affect of Breaking"
+msgstr "Kırılmanın Etkisi"
+
+#: repair_records/models/equipment.py:23
+#: repair_records/models/equipment_node.py:10 repair_records/utils.py:177
+msgid "Equipment"
+msgstr "Ekipman"
+
+#: repair_records/models/equipment.py:24
+msgid "Equipments"
+msgstr "Ekipmanlar"
+
+#: repair_records/models/equipment_inactive_time.py:8
+msgid "Active"
+msgstr "Aktif"
+
+#: repair_records/models/equipment_inactive_time.py:9
+msgid "Inactive"
+msgstr "Aktif değil"
+
+#: repair_records/models/equipment_inactive_time.py:13
+msgid "Start/End time fo Inactivity"
+msgstr "Hareketsizlik için Başlangıç/Bitiş zamanı"
+
+#: repair_records/models/equipment_inactive_time.py:15
+msgid "Activity Type"
+msgstr "Faaliyet Türü"
+
+#: repair_records/models/equipment_inactive_time.py:22
+msgid "Equipment Inactive Time"
+msgstr "Ekipman Aktif Olmayan Süre"
+
+#: repair_records/models/equipment_inactive_time.py:23
+msgid "Equipment Inactive Times"
+msgstr "Ekipman Aktif Olmayan Süreler"
+
+#: repair_records/models/equipment_node.py:17
+msgid "Equipment Node"
+msgstr "Ekipman Düğümü"
+
+#: repair_records/models/equipment_node.py:18
+msgid "Equipment Nodes"
+msgstr "Ekipman Düğümleri"
+
+#: repair_records/models/repair_record.py:10
+msgid "Work Done"
+msgstr "Yapılan İş"
+
+#: repair_records/models/repair_record.py:12
+msgid "Start Time"
+msgstr "Başlangıç Zamanı"
+
+#: repair_records/models/repair_record.py:13
+msgid "End Time"
+msgstr "Bitiş Zamanı"
+
+#: repair_records/models/repair_record.py:15
+msgid "Total Time"
+msgstr "Toplam Süre"
+
+#: repair_records/models/repair_record.py:19
+msgid "Repair Record"
+msgstr "Onarım Kaydı"
+
+#: repair_records/models/repair_type.py:10
+msgid "CodeName"
+msgstr "KodAdı"
+
+#: repair_records/models/repair_type.py:20 repair_records/utils.py:139
+msgid "Repair Type"
+msgstr "Onarım Türü"
+
+#: repair_records/models/repair_type.py:21
+msgid "Repair Types"
+msgstr "Onarım Türleri"
+
+#: repair_records/models/work_type.py:17
+msgid "Work Type"
+msgstr "İş Türü"
+
+#: repair_records/models/work_type.py:18
+msgid "Work Types"
+msgstr "İş Türleri"
+
+#: repair_records/utils.py:111
+msgid "Number of repair works"
+msgstr "Onarım işi sayısı"
+
+#: repair_records/utils.py:138
+msgid "Distribution of the number of repair works by repair types"
+msgstr "Tamir iş sayılarının tamir türlerine göre dağılımı"
+
+#: repair_records/utils.py:140 repair_records/utils.py:206
+msgid "Number of Repair Works"
+msgstr "Onarım İşi Sayısı"
+
+#: repair_records/utils.py:175
+msgid "Distribution of Repair Counts by Repair Type"
+msgstr "Onarım Tipine Göre Onarım Sayılarının Dağılımı"
+
+#: repair_records/utils.py:176
+msgid "Number of Repairs"
+msgstr "Tamir Sayısı"
+
+#: repair_records/utils.py:205
+msgid "Distribution of the number of repair works by master"
+msgstr "Tamir işlerinin ustalara göre dağılımı"
+
+#: repair_records/views/add_repairrecord.py:87
+msgid "Record not found"
+msgstr "Kayıt bulunamadı"
+
+#: repair_records/views/add_repairrecord.py:90
+msgid "You are not allowed to view this record"
+msgstr "Bu kaydı görüntülemenize izin verilmiyor"
+
+#: repair_records/views/add_repairrecord.py:93
+msgid "Record is not summarized"
+msgstr "Kayıt özetlenmemiştir"
+
+#: repair_records/views/list_repairrecord.py:134
+#, python-brace-format
+msgid "{days} days "
+msgstr "{days} gün"
+
+#: repair_records/views/list_repairrecord.py:136
+#, python-brace-format
+msgid "{hours} hours "
+msgstr "{hours} saat"
+
+#: repair_records/views/list_repairrecord.py:138
+#, python-brace-format
+msgid "{minutes} minutes"
+msgstr "{minutes} dakika"
+
+#: repair_records/views/list_repairrecord.py:140
+#, python-brace-format
+msgid "{seconds} seconds"
+msgstr "{seconds} saniye"
+
+#: repair_records/views/list_user.py:24
+msgid "Type"
+msgstr "Tip"
+
+#: repair_records/views/list_user.py:25
+msgid "Count"
+msgstr "Saymak"
+
+#: repair_records/views/list_user.py:73
+msgid "Performer"
+msgstr "İşçi"
+
+#: repair_records/views/list_user.py:73
+msgid "Master"
+msgstr "Usta"
+
+#: repair_records/views/mass_upload_repairrecord.py:50
+msgid "Mass upload was successful!"
+msgstr "Toplu yükleme başarılı oldu!"
+
+#: repair_records/views/mass_upload_repairrecord.py:52
+msgid "The file is not excel file"
+msgstr "Dosya excel dosyası değil"
+
+#: repair_records/views/mass_upload_repairrecord.py:65
+#, python-format
+msgid ""
+"Could not manage to open sheet %(name)s!                 Check for "
+"correctness of the sheet"
+msgstr "%(name)s sayfası açılamadı! "
+
+#: repair_records/views/mass_upload_repairrecord.py:105
+#, python-format
+msgid ""
+"Failed to upload Factory on row %(row)s:                                 "
+"%(name)s. Check for correctness of data!"
+msgstr "Fabrika %(row)s satırına yüklenemedi: %(name)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:118
+#, python-format
+msgid ""
+"Failed to upload Factory on row %(row)s:                             "
+"%(name)s. Check for correctness of data!"
+msgstr "Fabrika %(row)s satırına yüklenemedi: %(name)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:166
+#, python-format
+msgid ""
+"Failed to upload Section on row %(row)s:                                 "
+"%(factory)s - %(name)s.                                 Check for "
+"correctness of data!"
+msgstr "%(row)s satırındaki Bölüm yüklenemedi: %(factory)s - %(name)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:181
+#, python-format
+msgid ""
+"Failed to upload Section on row %(row)s:                             "
+"%(factory)s - %(name)s.                             Check for correctness of "
+"data!"
+msgstr "%(row)s satırındaki Bölüm yüklenemedi: %(factory)s - %(name)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:232
+#, python-format
+msgid ""
+"Failed to upload RepairType on row %(row)s:                                 "
+"%(factory)s - %(codename)s.                                  Check for "
+"correctness of data!"
+msgstr "%(row)s satırına RepairType yüklenemedi: %(factory)s - %(codename)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:248
+#, python-format
+msgid ""
+"Failed to upload RepairType on row %(row)s:                             "
+"%(factory)s - %(codename)s.                             Check for "
+"correctness of data!"
+msgstr "%(row)s satırına RepairType yüklenemedi: %(factory)s - %(codename)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:298
+#, python-format
+msgid ""
+"Failed to upload WorkType on row %(row)s:                                 "
+"%(factory)s - %(name)s.                                  Check for "
+"correctness of data!"
+msgstr "WorkType %(row)s satırına yüklenemedi: %(factory)s - %(name)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:314
+#, python-format
+msgid ""
+"Failed to upload WorkType on row %(row)s:                             "
+"%(factory)s - %(name)s.                             Check for correctness of "
+"data!"
+msgstr "WorkType %(row)s satırına yüklenemedi: %(factory)s - %(name)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:364
+#, python-format
+msgid ""
+"Failed to upload WorkAction on row %(row)s:                                 "
+"%(factory)s - %(name)s.                                  Check for "
+"correctness of data!"
+msgstr "WorkAction %(row)s satırına yüklenemedi: %(factory)s - %(name)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:380
+#, python-format
+msgid ""
+"Failed to upload WorkAction on row %(row)s:                             "
+"%(factory)s - %(name)s.                             Check for correctness of "
+"data!"
+msgstr "WorkAction %(row)s satırına yüklenemedi: %(factory)s - %(name)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:437
+#, python-format
+msgid ""
+"Failed to upload Equipment on row %(row)s:                                 "
+"%(factory)s %(section)s - %(equipment)s.                                 "
+"Check for correctness of data!"
+msgstr "%(row)s satırına Ekipman yüklenemedi: %(factory)s %(section)s - %(equipment)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:453
+#, python-format
+msgid ""
+"Failed to upload Equipment on row %(row)s:                             "
+"%(factory)s %(section)s - %(equipment)s.                             Check "
+"for correctness of data!"
+msgstr "%(row)s satırına Ekipman yüklenemedi: %(factory)s %(section)s - %(equipment)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:511
+#, python-format
+msgid ""
+"Failed to upload Equipment Node on row "
+"%(row)s:                                 %(factory)s %(section)s - "
+"%(equipment)s - %(node)s.                                 Check for "
+"correctness of data!"
+msgstr "Ekipman Düğümü %(row)s satırına yüklenemedi: %(factory)s %(section)s - %(equipment)s - %(node)s. "
+
+#: repair_records/views/mass_upload_repairrecord.py:528
+#, python-format
+msgid ""
+"Failed to upload Equipment Node on row %(row)s:                             "
+"%(factory)s %(section)s - %(equipment)s - "
+"%(node)s.                             Check for correctness of data!"
+msgstr "Ekipman Düğümü %(row)s satırına yüklenemedi: %(factory)s %(section)s - %(equipment)s - %(node)s. "
+
+#: repair_records/views/summary_repairrecord.py:30
+msgid "Equipment Codename"
+msgstr "Ekipman Kod Adı"
+
+#: repair_records/views/summary_repairrecord.py:31
+msgid "Equipment Name"
+msgstr "Ekipman Adı"
+
+#: repair_records/views/summary_repairrecord.py:34
+msgid "Score"
+msgstr "Skor"
+
+#: repair_records/views/summary_repairrecord.py:177
+msgid "You do not have permission to access this page"
+msgstr "Bu sayfaya erişim izniniz yok"
+
+#: repair_records/views/summary_repairrecord.py:205
+msgid "Monday"
+msgstr "Pazartesi"
+
+#: repair_records/views/summary_repairrecord.py:206
+msgid "Tuesday"
+msgstr "Salı"
+
+#: repair_records/views/summary_repairrecord.py:207
+msgid "Wednesday"
+msgstr "Çarşamba"
+
+#: repair_records/views/summary_repairrecord.py:208
+msgid "Thursday"
+msgstr "Perşembe"
+
+#: repair_records/views/summary_repairrecord.py:209
+msgid "Friday"
+msgstr "Cuma"
+
+#: repair_records/views/summary_repairrecord.py:210
+msgid "Saturday"
+msgstr "Cumartesi"
+
+#: repair_records/views/summary_repairrecord.py:211
+msgid "Sunday"
+msgstr "Pazar"
+
+#~ msgid "Description"
+#~ msgstr "Açıklama"
+

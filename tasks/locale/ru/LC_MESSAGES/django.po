@@ -1,0 +1,283 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-26 12:54+0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: repair_records/admin.py:22 repair_records/models.py:72
+#: repair_records/views/list_user.py:22
+#: repair_records/views/summary_repairrecord.py:26
+msgid "Factory"
+msgstr "Завод"
+
+#: repair_records/apps.py:8 repair_records/models.py:105
+msgid "Repair Records"
+msgstr "Записи о ремонте"
+
+#: repair_records/forms.py:49
+msgid "Submit"
+msgstr "Отправить"
+
+#: repair_records/forms.py:133
+msgid "Select a file"
+msgstr "Выберите файл"
+
+#: repair_records/forms.py:134
+msgid "Only XLSX, CSV, and XLS files are allowed."
+msgstr "Разрешены только файлы XLSX, CSV и XLS."
+
+#: repair_records/models.py:11
+msgid "CodeName"
+msgstr "Кодовое имя"
+
+#: repair_records/models.py:12 repair_records/models.py:30
+#: repair_records/views/list_user.py:21
+msgid "Name"
+msgstr "Название"
+
+#: repair_records/models.py:14 repair_records/models.py:32
+#: repair_records/models.py:75 repair_records/views/summary_repairrecord.py:27
+msgid "Section"
+msgstr "Участок"
+
+#: repair_records/models.py:21 repair_records/models.py:82
+msgid "Repair Type"
+msgstr "Тип ремонта"
+
+#: repair_records/models.py:22
+msgid "Repair Types"
+msgstr "Типы ремонта"
+
+#: repair_records/models.py:28
+msgid "Inventory Number"
+msgstr "Инвентарный номер"
+
+#: repair_records/models.py:35 repair_records/views/summary_repairrecord.py:30
+msgid "Probab. of Breaking"
+msgstr "Вероятность поломки"
+
+#: repair_records/models.py:36 repair_records/views/summary_repairrecord.py:31
+msgid "Affect of Breaking"
+msgstr "Воздействие поломки"
+
+#: repair_records/models.py:42 repair_records/models.py:79
+msgid "Equipment"
+msgstr "Оборудование"
+
+#: repair_records/models.py:43
+msgid "Equipments"
+msgstr "Оборудования"
+
+#: repair_records/models.py:48
+msgid "Active"
+msgstr "Активный"
+
+#: repair_records/models.py:49
+msgid "Inactive"
+msgstr "Неактивный"
+
+#: repair_records/models.py:53
+#, fuzzy
+#| msgid "Start/End time of Inactivity"
+msgid "Start/End time of Inactivity"
+msgstr "Время начала/окончания бездействия"
+
+#: repair_records/models.py:55
+msgid "Activity Type"
+msgstr "Тип деятельности"
+
+#: repair_records/models.py:62
+msgid "Equipment Inactive Time"
+msgstr "Время неактивности оборудования"
+
+#: repair_records/models.py:63
+msgid "Equipment Inactive Times"
+msgstr "Время неактивности оборудования"
+
+#: repair_records/models.py:86 repair_records/views/list_user.py:71
+msgid "Master"
+msgstr "Мастер"
+
+#: repair_records/models.py:92
+msgid "Performers"
+msgstr "Исполнители"
+
+#: repair_records/models.py:94
+msgid "Reason"
+msgstr "Причина"
+
+#: repair_records/models.py:95
+msgid "Work Done"
+msgstr "Выполненные работы"
+
+#: repair_records/models.py:97
+msgid "Start Time"
+msgstr "Время начала"
+
+#: repair_records/models.py:98
+msgid "End Time"
+msgstr "Время окончания"
+
+#: repair_records/models.py:100
+msgid "Total Time"
+msgstr "Общее время"
+
+#: repair_records/models.py:104
+msgid "Repair Record"
+msgstr "Запись о ремонте"
+
+#: repair_records/views/list_user.py:23
+msgid "Type"
+msgstr "Тип"
+
+#: repair_records/views/list_user.py:24
+msgid "Count"
+msgstr "Счет"
+
+#: repair_records/views/list_user.py:71
+msgid "Performer"
+msgstr "Исполнитель"
+
+#: repair_records/views/mass_upload_repairrecord.py:40
+msgid "Mass upload was successful!"
+msgstr "Массовая загрузка прошла успешно!"
+
+#: repair_records/views/mass_upload_repairrecord.py:42
+msgid "The file is not excel file"
+msgstr "Файл не является файлом Excel"
+
+#: repair_records/views/mass_upload_repairrecord.py:55
+#, python-format
+msgid ""
+"Could not manage to open sheet %(name)s! Check for correctness of the sheet"
+msgstr "Не удалось открыть лист %(name)s! Проверьте корректность листа"
+
+#: repair_records/views/mass_upload_repairrecord.py:95
+#, python-format
+msgid ""
+"Failed to upload Factory on row %(row)s: %(name)s. Check for correctness of "
+"data!"
+msgstr ""
+"Не удалось загрузить Завод в строке %(row)s: %(name)s. Проверьте "
+"корректность данных!"
+
+#: repair_records/views/mass_upload_repairrecord.py:108
+#, python-format
+msgid ""
+"Failed to upload Factory on row %(row)s:                             "
+"%(name)s. Check for correctness of data!"
+msgstr ""
+"Не удалось загрузить Завод в строке %(row)s: %(name)s. Проверьте "
+"корректность данных!"
+
+#: repair_records/views/mass_upload_repairrecord.py:156
+#, python-format
+msgid ""
+"Failed to upload Section on row %(row)s: %(factory)s - %(name)s. Check for "
+"correctness of data!"
+msgstr ""
+"Не удалось загрузить Участок в строке %(row)s: %(factory)s - %(name)s. "
+"Проверьте корректность данных!"
+
+#: repair_records/views/mass_upload_repairrecord.py:171
+#, python-format
+msgid ""
+"Failed to upload Section on row %(row)s:                             "
+"%(factory)s - %(name)s.                             Check for correctness of "
+"data!"
+msgstr ""
+"Не удалось загрузить Участок в строке %(row)s: %(factory)s - %(name)s. "
+"Проверьте корректность данных!"
+
+#: repair_records/views/mass_upload_repairrecord.py:222
+#, python-format
+msgid ""
+"Failed to upload RepairType on row %(row)s: %(factory)s - %(codename)s. Check "
+"for correctness of data!"
+msgstr ""
+"Не удалось загрузить Тип Ремонта в строке %(row)s: %(factory)s - %(codename)s. "
+"Проверьте корректность данных!"
+
+#: repair_records/views/mass_upload_repairrecord.py:238
+#, python-format
+msgid ""
+"Failed to upload RepairType on row %(row)s:                             "
+"%(factory)s - %(codename)s.                             Check for "
+"correctness of data!"
+msgstr ""
+"Не удалось загрузить Тип Ремонта в строке %(row)s: %(factory)s - %(codename)s. "
+"Проверьте корректность данных!"
+
+#: repair_records/views/mass_upload_repairrecord.py:295
+#, python-format
+msgid ""
+"Failed to upload Equipment on row %(row)s: %(factory)s %(section)s - "
+"%(equipment)s. Check for correctness of data!"
+msgstr ""
+"Не удалось загрузить Оборудование в строке %(row)s: %(factory)s %(section)s - "
+"%(equipment)s. Проверьте правильность данных!"
+
+#: repair_records/views/mass_upload_repairrecord.py:311
+#, python-format
+msgid ""
+"Failed to upload Equipment on row %(row)s:                             "
+"%(factory)s %(section)s - %(equipment)s.                             Check "
+"for correctness of data!"
+msgstr ""
+"Не удалось загрузить Оборудование в строке %(row)s: %(factory)s %(section)s - "
+"%(equipment)s. Проверьте правильность данных!"
+
+#: repair_records/views/summary_repairrecord.py:28
+msgid "Equipment Codename"
+msgstr "Код Оборудования"
+
+#: repair_records/views/summary_repairrecord.py:29
+msgid "Equipment Name"
+msgstr "Название Оборудования"
+
+#: repair_records/views/summary_repairrecord.py:32
+msgid "Score"
+msgstr "Балл"
+
+#: repair_records/views/summary_repairrecord.py:33
+msgid "Amount"
+msgstr "Количество"
+
+#: repair_records/views/summary_repairrecord.py:66
+#, python-format
+msgid ""
+"Report for Factory: %(factory)s; Section: %(section)s; Equipment: "
+"%(equipment)s"
+msgstr ""
+"Отчет по Заводу: %(factory)s; Участку: %(section)s; Оборудованию: "
+"%(equipment)s"
+
+msgid "Mass Upload"
+msgstr "Массовая загрузка"
+
+msgid "List Reports"
+msgstr "Список Отчетов"
+
+msgid "Summary Reports"
+msgstr "Общие Отчеты"
+
+msgid "Logout"
+msgstr "Выход"
+
+msgid "Add Repair Record"
+msgstr "Добавить Отчет"

@@ -1,0 +1,201 @@
+{% load i18n %}
+
+<style>
+  /* For devices sm and xs */
+  @media (max-width: 576px) {
+    .label-on-border {
+      margin-top: -0.75rem !important;
+    }
+  }
+
+  /* For any other devices */
+  @media (min-width: 577px) {
+    .label-on-border {
+      margin-top: -0.4rem !important;
+    }
+  }
+</style>
+<form action="" id="add-form">
+{% csrf_token %}
+<input type="hidden" name="master" value="{{ user.id }}">
+<input type="hidden" name="date" id="add-task-date" class="form-control form-control-sm mt-2 mb-2">
+
+<div class="d-flex justify-content-between row mt-2 me-1">
+  <h5 class="col-auto">{% translate "Add Task" %}</h5>
+  <button class="col-auto btn btn-sm btn-primary" type="submit">
+    {% translate "Add Task" %}
+  </button>
+</div>
+  <div class="row">
+    <div class="col-12 col-md-4 d-md-inline-block mb-3 mb-md-0">
+      <label for="factory" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Factory" %}</span
+        ></label
+      >
+      <select
+        class="select form-select form-select-sm mt-2 mb-2"
+        id="factory"
+        name="factory"
+        required
+      />
+    </select>
+    </div>
+    <div class="col-12 col-md-4 d-md-inline-block mb-3 mb-md-0">
+      <label for="section" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Section" %}</span
+        ></label
+      >
+      <select
+        class="select form-select form-select-sm mt-2 mb-2"
+        id="section"
+        name="section"
+        required
+      />
+      </select>
+    </div>
+    <div class="col-12 col-md-4 d-md-inline-block mb-3 mb-md-0">
+      <label for="equipment" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Equipment" %}</span
+        ></label
+      >
+      <select
+        class="select form-select form-select-sm mt-2 mb-2"
+        id="equipment"
+        name="equipment"
+        required
+      />
+    </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-4 d-md-inline-block mb-3 mb-md-0">
+      <label for="equipment_node" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Equipment Node" %}</span
+        ></label
+      >
+      <select
+        class="select form-select form-select-sm mt-2 mb-2"
+        id="equipment_node"
+        name="equipment_node"
+        required
+      />
+    </select>
+    </div>
+    <div class="col-12 col-md-4 d-md-inline-block mb-3 mb-md-0">
+      <label for="repair_type" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Repair Type" %}</span
+        ></label
+      >
+      <select
+        class="select form-select form-select-sm mt-2 mb-2"
+        id="repair_type"
+        name="repair_type"
+        required
+      />
+    </select>
+    </div>
+    <div class="col-12 col-md-4 d-md-inline-block mb-3 mb-md-0">
+      <label for="work_type" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Work Type" %}</span
+        ></label
+      >
+      <select
+        class="select form-select form-select-sm mt-2 mb-2"
+        id="work_type"
+        name="work_type"
+        required
+      />
+    </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-md-4 d-md-inline-block mb-3 mb-md-0">
+      <label for="work_action" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Work Action" %}</span
+        ></label
+      >
+      <select
+        class="select form-select form-select-sm mt-2 mb-2"
+        id="work_action"
+        name="work_action"
+        required
+      />
+      </select>
+    </div>
+    <div class="col-12 col-md-4 d-md-inline-block mb-3 mb-md-0">
+      <label for="allocated_time" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Allocated Time" %}</span
+        ></label
+      >
+      <input
+        class="form-control form-control-sm mt-2 mb-2"
+        id="allocated_time"
+        name="allocated_time"
+        type="time"
+        required
+      />
+    </div>
+    <div class="col-12 col-md-4 d-md-inline-block mb-3 mb-md-0">
+      <label for="frequency" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Frequency" %}</span
+        ></label
+      >
+      <select
+        class="select form-select form-select-sm mt-2 mb-2"
+        id="frequency"
+        name="frequency"
+        required
+      />
+        <option value="0">{% translate "One-time" %}</option>
+        <option value="1">{% translate "Daily" %}</option>
+        <option value="7">{% translate "One time per week" %}</option>
+        <option value="10">{% translate "Ten days" %}</option>
+        <option value="14">{% translate "One time every two weeks" %}</option>
+        <option value="30">{% translate "One time per month" %}</option>
+        <option value="90">{% translate "Once every three months" %}</option>
+        <option value="180">{% translate "Once every six months" %}</option>
+        <option value="365">{% translate "One time per year" %}</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 d-md-inline-block mb-3 mb-md-0">
+      <label for="reason" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Reason" %}</span
+        ></label
+      >
+      <textarea
+        class="form-control form-control-sm mt-2 mb-2"
+        id="reason"
+        name="reason"
+        rows="1"
+        required
+      ></textarea>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 d-md-inline-block mb-3 mb-md-0">
+      <label for="comment" class="ms-2 position-absolute label-on-border"
+        ><span class="h6 small bg-white text-muted px-1"
+          >{% translate "Comment" %}</span
+        ></label
+      >
+      <textarea
+        class="form-control form-control-sm mt-2 mb-2"
+        id="comment"
+        name="comment"
+        rows="1"
+      ></textarea>
+    </div>
+  </div>
+</form>
