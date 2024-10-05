@@ -17,12 +17,20 @@
 
 {% block content %}
   <h1 class="my-4">{% translate "Add Repair Record" %}</h1>
+    
+    <!-- Search Performers Input -->
+    
+    <div class="input-group mb-3">
+      <input type="text" id="performer-search" class="form-control" placeholder="Search performers..." aria-describedby="search-performers">
+    </div>
+
   <form id="form-id" autocomplete="off">
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="ID" aria-describedby="button-id">
       <button class="btn btn-outline-secondary" type="submit" id="button-id">Find</button>
     </div>
   </form>
+
   <form method="post" id="form" autocomplete="off">
     {% csrf_token %}
     {% crispy form form.helper %}
@@ -81,7 +89,6 @@
             });
             form.find('#id_performers').prop('disabled', true);
 
-
             form.find('#id_reason').val(data.reason);
             form.find('#id_reason').prop('disabled', true);
 
@@ -110,8 +117,6 @@
       form.find(id).prop('disabled', true);
       form.find(id).val(value);
     }
-
-
   </script>
 
   <script>
@@ -124,6 +129,20 @@
         // Initial disable
         $('#id_section, #id_master, #id_performers, #id_equipment, #id_repair_type').prop('disabled', true);
         $("#id_performers").empty();
+
+        // Add search functionality for performers
+        $('#performer-search').on('keyup', function() {
+            var searchTerm = $(this).val().toLowerCase();
+
+            $('#id_performers option').each(function() {
+                var performerName = $(this).text().toLowerCase();
+                if (performerName.includes(searchTerm)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
 
         // Factory selection handler
         $('#id_factory').change(function () {
@@ -339,4 +358,3 @@
   </script>
 
 {% endblock %}
-

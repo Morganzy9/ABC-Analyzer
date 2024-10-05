@@ -134,7 +134,7 @@ class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
 
         data = [
             {
-                "start_time": record.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+                "start_time": record.start_time.strftime("%Y-%m-%d %H:%M:%S"),
                 "end_time": record.end_time.strftime("%Y-%m-%d %H:%M:%S"),
                 "factory": record.factory.name,
                 "section": record.section.name,
@@ -159,23 +159,23 @@ class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
         return JsonResponse(response_data)
 
     def format_total_time(self, total_time):
-        """Format the total time in 'X ч. Y мин. Z сек.' format."""
         days = total_time.days
         hours, remainder = divmod(total_time.seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
 
         formatted_time = []
+
         if days > 0:
-            formatted_time.append(f"{days} д.")
+            formatted_time.append(f"{days} days")
 
         if hours > 0:
-            formatted_time.append(f"{hours} ч.")
+            formatted_time.append(f"{hours} hours")
 
         if minutes > 0:
-            formatted_time.append(f"{minutes} мин.")
+            formatted_time.append(f"{minutes} minutes")
 
-        if seconds > 0 or not formatted_time:
-            formatted_time.append(f"{seconds} сек.")
+        if not formatted_time:
+            formatted_time.append(f"0 minutes")
 
         return " ".join(formatted_time)
 
