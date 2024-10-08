@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 {% load i18n %}
 
@@ -20,6 +19,11 @@
             margin-top: -0.25rem !important;
         }
     }
+
+    /* Custom styling for the filter dropdown */
+    .filter-container {
+        margin-bottom: 1rem;  /* Ensure space between the filter and table */
+    }
   </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -29,25 +33,28 @@
   <div class="d-flex justify-content-end">
     <a href="{% url 'list_csv_repair_record' %}" download class="btn btn-sm btn-secondary" id="csv-button">CSV</a>
   </div>
+
   <div class="row align-items-center mb-4">
     <div class="col-sm-12 col-md-5">
-      <h1 class="">{% translate "List of reports" %}</h1>
+      <h1>{% translate "List of reports" %}</h1>
     </div>
+
+    <!-- Search Filters -->
     <div class="col">
       <div class="row align-items-center justify-content-end">
-        <div class="col-sm-12 col-md-auto align-items-center">
+        <div class="col-sm-12 col-md-auto">
           <div class="d-md-inline-block mb-3 mb-md-0">
             <label for="startDateInput" class="ms-2 position-absolute label-on-border">
               <span class="h6 small bg-white text-muted px-1">{% translate "Start Date" %}</span>
             </label>
-            <input type="date" class="form-control mt-2 mb-2" id="startDateInput" placeholder={% translate "Start Date" %}>
+            <input type="date" class="form-control mt-2 mb-2" id="startDateInput" placeholder="{% translate 'Start Date' %}">
           </div>
           <div class="d-none d-md-inline-block">─</div>
           <div class="d-md-inline-block">
             <label for="endDateInput" class="ms-2 position-absolute label-on-border">
               <span class="h6 small bg-white text-muted px-1">{% translate "End Date" %}</span>
             </label>
-            <input type="date" class="form-control mt-2 mb-2" id="endDateInput" placeholder={% translate "End Date" %}>
+            <input type="date" class="form-control mt-2 mb-2" id="endDateInput" placeholder="{% translate 'End Date' %}">
           </div>
         </div>
         <div class="col-sm-12 col-md-auto d-grid">
@@ -56,6 +63,20 @@
       </div>
     </div>
   </div>
+
+  <!-- Filter Container to avoid overlap -->
+  <div class="row filter-container">
+    <div class="col-auto text-end">
+      <select class="selectpicker" id="filter-by-factory" autocomplete="off" multiple>
+        <option value="" selected>{% translate "All" %}</option>
+        {% for factory in factories %}
+          <option value="{{ factory.0 }}">{{ factory.1 }}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+
+  <!-- Data Table -->
   <table id="repair-records" class="display table table-striped table-hover table-bordered" style="width:100%">
     <thead>
       <tr>
@@ -93,6 +114,7 @@
                     d.csrfmiddlewaretoken = "{{ csrf_token }}";
                     d.start_date = $("#startDateInput").val();
                     d.end_date = $("#endDateInput").val();
+                    d.factories = $("#filter-by-factory").val();
                 }
             },
             order: [[0, 'desc']],
@@ -110,7 +132,7 @@
             ],
             rowCallback: function(row, data) {
                 $(row).attr('data-bs-toggle', 'tooltip');
-                $(row).attr('title', `<strong>Причина поломки:</strong> ${data.reason}<br><strong>Выполненные работы:</strong> ${data.work_done}`);
+                $(row).attr('title', `<strong>{% translate 'Причина поломки' %}:</strong> ${data.reason}<br><strong>{% translate 'Выполненные работы' %}:</strong> ${data.work_done}`);
             },
             drawCallback: function() {
                 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -119,11 +141,16 @@
                 });
             }
         });
-    
+
         $("#searchButton").on("click", function() {
             table.ajax.reload();
         });
-    
+
+        // Add an event listener to the factory filter dropdown
+        $("#filter-by-factory").on("changed.bs.select", function() {
+            table.ajax.reload();  // Reload the DataTable when the factory selection changes
+        });
+
         // Update date constraints
         $("#startDateInput").on("change", function() {
             var startDate = $(this).val();
@@ -132,7 +159,7 @@
                 $("#endDateInput").val(startDate);
             }
         });
-    
+
         $("#endDateInput").on("change", function() {
             var endDate = $(this).val();
             $("#startDateInput").attr("max", endDate);
@@ -141,6 +168,5 @@
             }
         });
     });
-
 </script>
 {% endblock %}

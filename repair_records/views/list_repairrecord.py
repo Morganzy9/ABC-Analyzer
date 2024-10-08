@@ -63,30 +63,26 @@ class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
                 | Q(repair_type__codename__icontains=search_value)
             )
 
-        # Apply date range filter
-        filter_factory_ids = request.POST.getlist("factories[]")
-        if filter_factory_ids and filter_factory_ids[0] == "":
-            filter_factory_ids = filter_factory_ids[1:]
+        # Filter by selected factories
+        filter_factory_ids = request.POST.getlist("factories[]", [])
 
+        # Ensure that filtering only occurs if valid factory IDs are selected
         if filter_factory_ids:
-            records = records.filter(section__factory_id__in=filter_factory_ids)
+            filter_factory_ids = [fid for fid in filter_factory_ids if fid]
+            if filter_factory_ids:
+                records = records.filter(factory_id__in=filter_factory_ids)
 
+        # Apply date range filter
         start_date = request.POST.get("start_date")
         end_date = request.POST.get("end_date")
 
         start_datetime = datetime(1970, 1, 1, tzinfo=timezone.utc)
         end_datetime = datetime.now(timezone.utc)
 
-        if start_date != "":
-            start_datetime = datetime.strptime(start_date, "%Y-%m-%d").replace(
-                tzinfo=timezone.utc
-            )
-        if end_date != "":
-            end_datetime = datetime.strptime(end_date, "%Y-%m-%d").replace(
-                tzinfo=timezone.utc
-            )
-        elif start_datetime > end_datetime:
-            end_datetime = start_datetime
+        if start_date:
+            start_datetime = datetime.strptime(start_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        if end_date:
+            end_datetime = datetime.strptime(end_date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
 
         end_datetime += timedelta(days=1)
 
@@ -95,9 +91,7 @@ class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
 
         # Sorting
         sorting_column_index = int(request.POST.get("order[0][column]", 0))
-        sorting_column_name = request.POST.get(
-            f"columns[{sorting_column_index}][data]", "id"
-        )
+        sorting_column_name = request.POST.get(f"columns[{sorting_column_index}][data]", "id")
         sorting_direction = request.POST.get("order[0][dir]", "asc")
 
         if sorting_column_name == "date":
@@ -107,23 +101,13 @@ class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
         elif sorting_column_name == "equipment_name":
             sorting_column_name = "equipment__name"
 
-        # Construct the sorting expression dynamically
-        if sorting_direction == "desc":
-            sorting_expression = "-" + sorting_column_name
-        else:
-            sorting_expression = sorting_column_name
+        sorting_expression = f"{'-' if sorting_direction == 'desc' else ''}{sorting_column_name}"
 
         records = records.order_by(sorting_expression)
 
         # Pagination
         start = int(request.POST.get("start", 0))
         length = int(request.POST.get("length", 10))
-
-
-        if start < 0:
-            start = 0
-        if length <= 0:
-            length = 10
 
         total_count = records.count()
 
@@ -139,7 +123,7 @@ class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
                 "factory": record.factory.name,
                 "section": record.section.name,
                 "master": f"{record.master.first_name} {record.master.last_name}" if record.master else "No master",
-                "performers": ",".join(f"{x.first_name} {x.last_name}" for x in record.performers.all()),
+                "performers": ", ".join(f"{x.first_name} {x.last_name}" for x in record.performers.all()),
                 "equipment_codename": record.equipment.codename,
                 "equipment_name": record.equipment.name,
                 "repair_type": record.repair_type.codename,
@@ -150,34 +134,19 @@ class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
             for record in records
         ]
 
-        response_data = {
+        response = {
             "draw": int(request.POST.get("draw", 1)),
             "recordsTotal": total_count,
             "recordsFiltered": total_count,
             "data": data,
         }
-        return JsonResponse(response_data)
+
+        return JsonResponse(response)
 
     def format_total_time(self, total_time):
-        days = total_time.days
-        hours, remainder = divmod(total_time.seconds, 3600)
-        minutes, seconds = divmod(remainder, 60)
-
-        formatted_time = []
-
-        if days > 0:
-            formatted_time.append(f"{days} days")
-
-        if hours > 0:
-            formatted_time.append(f"{hours} hours")
-
-        if minutes > 0:
-            formatted_time.append(f"{minutes} minutes")
-
-        if not formatted_time:
-            formatted_time.append(f"0 minutes")
-
-        return " ".join(formatted_time)
+        if total_time:
+            return str(total_time)
+        return _("N/A")
 
 
 class ListCSVRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
