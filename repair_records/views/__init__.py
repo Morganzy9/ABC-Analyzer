@@ -1,6 +1,6 @@
 from .add_repairrecord import AddRepairRecordView, AddSelectionView, GetRepairRecordView
 from .list_repairrecord import ListRepairRecordView
-from .list_repairrecord import ListCSVRepairRecordView
+from .list_repairrecord import ListExcelRepairRecordView
 from .mass_upload_repairrecord import MassUploadView
 from .summary_repairrecord import SummaryRepairRecordView
 from .summary_repairrecord import SummaryCSVRepairRecordView

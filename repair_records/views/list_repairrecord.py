@@ -13,6 +13,7 @@ from django.contrib.postgres.search import TrigramSimilarity
 from accounts.models import Factory
 from repair_records.models import RepairRecord
 
+from openpyxl import Workbook
 
 class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
     template_name = "repair_record/list.html"
@@ -150,7 +151,7 @@ class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
         return _("N/A")
 
 
-class ListCSVRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
+class ListExcelRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
     permission_required = "repair_records.view_repairrecord"
 
     def get(self, request, *args, **kwargs):
@@ -160,27 +161,42 @@ class ListCSVRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View)
         else:
             records = RepairRecord.objects.filter(factory__in=user.factories.all())
 
-        response = HttpResponse(content_type="text/csv; charset=utf-8")
-        response["Content-Disposition"] = 'attachment; filename="list_report.csv"'
+        # Create Excel workbook and worksheet
+        workbook = Workbook()
+        worksheet = workbook.active
+        worksheet.title = "Repair Records"
 
-        response.write("\ufeff".encode("utf-8"))
-        csv_writer = csv.writer(response, delimiter=";")
+        # Add header row
+        headers = [
+            "Start Time", "End Time", "Factory", "Section", "Master",
+            "Performers", "Equipment Codename", "Equipment Name",
+            "Repair Type", "Total Time"
+        ]
+        worksheet.append(headers)
 
-        header_row = [field.name for field in RepairRecord._meta.fields]
-        header_row.insert(8, "performers")
-        csv_writer.writerow(header_row)
-
-        for item in records:
-            data_row = [
-                str(getattr(item, field))
-                .replace(";", ".")
-                .replace("\n", " ")
-                .replace("\t", " ")
-                .replace("\r", " ")
-                if field != "performers"
-                else ", ".join([str(performer) for performer in item.performers.all()])
-                for field in header_row
+        # Add data rows
+        for record in records:
+            performers = ", ".join(f"{p.first_name} {p.last_name}" for p in record.performers.all())
+            row = [
+                record.start_time.strftime("%Y-%m-%d %H:%M:%S") if record.start_time else "",
+                record.end_time.strftime("%Y-%m-%d %H:%M:%S") if record.end_time else "",
+                record.factory.name if record.factory else "",
+                record.section.name if record.section else "",
+                f"{record.master.first_name} {record.master.last_name}" if record.master else "",
+                performers,
+                record.equipment.codename if record.equipment else "",
+                record.equipment.name if record.equipment else "",
+                record.repair_type.codename if record.repair_type else "",
+                str(record.total_time) if record.total_time else "",
             ]
-            csv_writer.writerow(data_row)
+            worksheet.append(row)
 
+        # Prepare HTTP response
+        response = HttpResponse(
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        )
+        response["Content-Disposition"] = 'attachment; filename="repair_records.xlsx"'
+
+        # Save workbook to response
+        workbook.save(response)
         return response

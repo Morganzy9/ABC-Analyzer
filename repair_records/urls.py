@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (
     ListRepairRecordView,
-    ListCSVRepairRecordView,
+    ListExcelRepairRecordView,
     AddRepairRecordView,
     AddSelectionView,
     SummaryRepairRecordView,
@@ -19,7 +19,7 @@ from .views import (
 
 urlpatterns = [
     path("list/", ListRepairRecordView.as_view(), name="list_repair_record"),
-    path("list-csv/", ListCSVRepairRecordView.as_view(), name="list_csv_repair_record"),
+    path("list-csv/", ListExcelRepairRecordView.as_view(), name="list_csv_repair_record"),
     path("summary/", SummaryRepairRecordView.as_view(), name="summary_repair_record"),
     path(
         "summary-csv/",
