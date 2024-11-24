@@ -15,7 +15,7 @@ from .models import RepairRecord, EquipmentInactiveTime
 class RepairRecordForm(forms.ModelForm):
     class Meta:
         model = RepairRecord
-        fields = ('factory', 'section', 'equipment', 'performers', 'master', 'repair_type', 'start_time', 'end_time', 'reason', 'work_done')
+        fields = ('factory', 'section', 'equipment', 'performers', 'master', 'repair_type', 'start_time', 'end_time', 'reason', 'work_done', 'details_info')
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop("user", None)
@@ -43,6 +43,7 @@ class RepairRecordForm(forms.ModelForm):
             ),
             Field("reason"),  # Add classes for Bootstrap styling
             Field("work_done"),  # Add classes for Bootstrap styling
+            Field("details_info"),  # Add the details_info field here
             Div(
                 # Add the Submit button
                 Submit("submit", _("Submit"), css_class="btn btn-primary col-1"),
@@ -119,7 +120,11 @@ class RepairRecordForm(forms.ModelForm):
             self.fields["equipment"].queryset = Equipment.objects.filter(
                 section__in=sections
             )
-
+            # FIELD: Details_Info
+        if not user.is_superuser:
+            self.fields["details_info"].queryset = Equipment.objects.filter(
+                section__in=sections
+            )
 
 class MassUploadForm(forms.Form):
     ALLOWED_EXTENSIONS = [".xlsx", ".csv", ".xls"]

@@ -128,6 +128,7 @@ class ListRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
                 "equipment_name": record.equipment.name,
                 "repair_type": record.repair_type.codename,
                 "reason": record.reason,
+                "details_info": record.details_info,
                 "work_done": record.work_done,
                 "total_time": self.format_total_time(record.total_time),
             }

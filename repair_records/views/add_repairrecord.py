@@ -29,11 +29,16 @@ class AddRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
     def post(self, request):
         user = request.user
         form = RepairRecordForm(request.POST or None, user=user)
+
         if form.is_valid():
-            form.save()
+            details_info_value = form.cleaned_data.get("details_info")
+            print(f"Details Info from cleaned_data: {details_info_value}")  # Debug the cleaned data
+
+            record = form.save()
+            print(f"Saved record details_info: {record.details_info}")  # Check if it saved correctly
         else:
-            print(form)
-            print(form.errors)
+            print("Form errors:", form.errors)  # Print form errors for debugging
+
         return redirect("add_repair_record")
 
 
@@ -108,5 +113,6 @@ class GetRepairRecordView(PermissionRequiredMixin, LoginRequiredMixin, View):
             'work_action': (record.work_action.pk, record.work_action.name),
             'allocated_time': record.allocated_time,
             'reason': record.reason,
+            "details_info": record.details_info,
         }
         return JsonResponse(data)

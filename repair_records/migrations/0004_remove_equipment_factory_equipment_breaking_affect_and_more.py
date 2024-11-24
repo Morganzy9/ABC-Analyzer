@@ -14,10 +14,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="equipment",
-            name="factory",
-        ),
+        # migrations.RemoveField(
+        #     model_name="equipment",
+        #     name="factory",
+        # ),
         migrations.AddField(
             model_name="equipment",
             name="breaking_affect",

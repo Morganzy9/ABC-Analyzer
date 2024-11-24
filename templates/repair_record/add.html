@@ -93,6 +93,8 @@
             form.find('#id_reason').prop('disabled', true);
 
             form.find('#id_id').val(data.id);
+            {#form.find('#id_details_info').val(data.details_info || 'NONE');#}
+            {#form.find('#id_details_info').prop('disabled', true);#}
           },
           error: function(data) {
             if (data.responseJSON.error !== undefined) {
@@ -346,6 +348,12 @@
         // Format date fields before submission
         const start_timeInput = $('#id_start_time');
         const end_timeInput = $('#id_end_time');
+        const detailsInfo = $('#id_details_info').val();
+        if (!detailsInfo) {
+            alert('Details Info is required');
+            event.preventDefault();
+            return false;
+        }
 
         start_timeInput.val(formatDateToISO(start_timeInput.val()));
         end_timeInput.val(formatDateToISO(end_timeInput.val()));

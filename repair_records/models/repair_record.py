@@ -14,7 +14,7 @@ class RepairRecord(TaskBase):
     total_time = models.DurationField(
         verbose_name=_("Total Time"), blank=True, null=True
     )
-
+    details_info = models.TextField(blank=True, null=True)
     class Meta:
         verbose_name = _("Repair Record")
         verbose_name_plural = _("Repair Records")

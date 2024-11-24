@@ -128,11 +128,15 @@
                 { data: "equipment_codename" },
                 { data: "equipment_name" },
                 { data: "repair_type" },
-                { data: "total_time" }
+                { data: "total_time" },
             ],
             rowCallback: function(row, data) {
                 $(row).attr('data-bs-toggle', 'tooltip');
-                $(row).attr('title', `<strong>{% translate 'Причина поломки' %}:</strong> ${data.reason}<br><strong>{% translate 'Выполненные работы' %}:</strong> ${data.work_done}`);
+                $(row).attr('title', `
+                    <strong>{% translate 'Reason' %}:</strong> ${data.reason}<br>
+                    <strong>{% translate 'Work Done' %}:</strong> ${data.work_done}<br>
+                    <strong>{% translate 'Details Info' %}:</strong> ${data.details_info}
+                `);
             },
             drawCallback: function() {
                 var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
